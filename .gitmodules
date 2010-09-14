@@ -34,3 +34,9 @@
 [submodule "bundle/rake"]
 	path = bundle/rake
 	url = http://github.com/tpope/vim-rake.git
+[submodule "bundle/endwise"]
+	path = bundle/endwise
+	url = http://github.com/tpope/vim-endwise.git
+[submodule "bundle/pastie"]
+	path = bundle/pastie
+	url = http://github.com/tpope/vim-pastie.git
