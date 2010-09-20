@@ -22,6 +22,11 @@ set laststatus=2  					" Always show status line.
 "set listchars=tab:>-,trail:,eol:$
 let g:netrw_altv = 1    			" Vsplit right in :Explore mode
 
+set go-=T							"keep MacVim toolbar hidden
+
+" Required for <C-{H,J,K,L}> mappings below
+set winminheight=0      " Allow windows to get fully squashed
+set winminwidth=0      " Allow windows to get fully squashed
  
 " Windows Only
 "set backupdir=c:\temp
@@ -44,6 +49,9 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
+  "Always change to directory of current file
+  autocmd BufEnter * lcd %:p:h 
+
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
@@ -74,6 +82,11 @@ colorscheme torte
 "colorscheme vividchalk
 "highlight Normal guibg=Black guifg=White	"Windows, use if no colorscheme
 
+"" Switch between windows, maximizing the current window
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-H> <C-W>h<C-W>\|
+map <C-L> <C-W>l<C-W>\|
 
 :map \r	 :call Run()
 :map \wr :call WriteRun()
