@@ -88,6 +88,9 @@ map <C-K> <C-W>k<C-W>_
 map <C-H> <C-W>h<C-W>\|
 map <C-L> <C-W>l<C-W>\|
 
+" Turn hlsearch off/on with CTRL-N
+:map <silent> <C-N> :se invhlsearch<CR>
+
 :map \r	 :call Run()
 :map \wr :call WriteRun()
 :map \jc :call JavaCompile()
