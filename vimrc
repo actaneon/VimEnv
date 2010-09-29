@@ -109,6 +109,10 @@ map <C-L> <C-W>l<C-W>\|
 :map <leader># :s/^/#/g<CR>:noh<CR>j
 :map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
 
+"nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+"imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+"map <F2> "+p
+
 " Run rspec 
 "nnoremap <leader>t :call Spec()<CR>
 

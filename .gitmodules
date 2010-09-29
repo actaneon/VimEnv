@@ -40,3 +40,6 @@
 [submodule "bundle/pastie"]
 	path = bundle/pastie
 	url = http://github.com/tpope/vim-pastie.git
+[submodule "bundle/fakeclip"]
+	path = bundle/fakeclip
+	url = http://github.com/kana/vim-fakeclip.git
