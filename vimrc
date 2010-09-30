@@ -2,7 +2,6 @@ call pathogen#runtime_append_all_bundles()
 
 set nocompatible
 set backspace=indent,eol,start 		" allow backspacing over everything in insert mode
-set cindent
 set incsearch						" do incremental searching
 set history=50						" keep 50 lines of command line history
 set nobackup
@@ -21,15 +20,23 @@ set cf  							" Enable error files & error jumping.
 set laststatus=2  					" Always show status line.
 set listchars=tab:>-,trail:.,eol:$
 let g:netrw_altv = 1    			" Vsplit right in :Explore mode
+set vb 								" turns off visual bell
 
 set go-=T							"keep MacVim toolbar hidden
 
+"set cindent
+"set smartindent
+
 "Highlight current line
-":set cursorline
+"set cursorline
 
 " Required for <C-{H,J,K,L}> mappings below
 set winminheight=0      " Allow windows to get fully squashed
 set winminwidth=0      " Allow windows to get fully squashed
+
+"" Store temporary files in a central spot
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
  
 " Windows Only
 "set backupdir=c:\temp
@@ -47,7 +54,7 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 if has("gui_running")
-  set autochdir
+  "set autochdir
 endif
 
 " Only do this part when compiled with support for autocommands.
@@ -99,8 +106,15 @@ map <silent> <C-N> :se invhlsearch<CR>
 " Toggle display of characters for whitespace
 map <silent> <leader>s :set nolist!<CR>
 
+"This unsets the "last search pattern" register 
+nnoremap <esc> :nohlsearch<return><esc>
+
+"Execute current file 
 map \r	:! %:p<CR>
+
+"Write then Execute current file 
 map \wr :call WriteRun()<CR>
+
 map \jc :call JavaCompile()
 map \jr :call JavaRun()
 map \fsif :call FormatSQLInsertFields()
@@ -109,9 +123,17 @@ map \fsif :call FormatSQLInsertFields()
 map <leader># :s/^/#/g<CR>:noh<CR>j
 map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
 
-"nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-"imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-"map <F2> "+p
+nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+map <F2> "+p
+
+"let generate_tags=1
+"let g:ctags_statusline=1 
+"let ctags_path="/opt/local/bin/ctags"
+
+let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+let Tlist_WinWidth = 50
+"map <F4> :Tlist<cr>
 
 " Run rspec 
 "nnoremap <leader>t :call Spec()<CR>

@@ -1,0 +1,128 @@
+:set all          list all the possible vim features
+
+Exiting/Saving
+:wa - write all.
+:wq - Save changes and Exit.
+
+
+Shell
+:!pwd	Execute the pwd unix command, then returns to Vi
+!!pwd	Execute the pwd unix command and insert output in file
+
+
+File Browsing
+:Ex - Ex(plorer) mode
+gf	Open file under cursor
+
+Moving
+H	Move to top of screen
+M	Move to middle of screen
+L	Move to botton of screen
+z 	z-carriage return makes the current line the top line on the page
+z.	Makes the current line the middle line on the page
+z-	Makes the current line the bottom line on the page
+
+
+Multiple Windows
+CTRL + w, s - Split Horizontally, reopen the same file in the new window.
+CTRL + w, v - Split Vertically
+CTRL + w, n - Opens a Blank Window
+CTRL + w, c - Close active window
+CTRL + w, o - Close all windows except the active one.
+CTRL + w, f - Open file under cursor
+CTRL + w, r - Rotate windows
+CTRL + w, x - Swap window with next one
+CTRL + w, UP/DOWN/RIGHT/LEFT will move focus to corresponding window.
+CTRL + w, h/j/k/l will move focus Move to middle of screen
+L	Move to botton of screen
+z 	z-carriage return makes the current line the top line on the page
+z.	Makes the current line the middle line on the page
+z-	Makes the current line the bottom line on the page
+
+
+Multiple Windows
+CTRL + w, s - Split Horizontally, reopen the same file in the new window.
+CTRL + w, v -c arriage return makes the current line the top line on thngge
+z.	Makes the current line the middle line on the page
+zffakes the current line the bottom line on the page
+
+
+Multipl yindows
+CTRL + w, s - Split Horizontally, reopen the same filifin the new window.
+CTRL + w, v - Split Vertically
+CTRL + w,  a w, o - Close all windows except the active one.
+CTRL + w, f - Open file under cursor
+CTRL + w, r - Rotate windows
+CTRL + wfoOpen file under cursor
+CTRL + w, r - Rotate windows
+CTRL + w,t  - Swap window with next one
+CTRL + w, UP/DOWN/RIGHT/LEFT willdmove focus to corresponding window.
+CTRL + w, h/j/k/l will mold focus Move to middle of screen
+L	Move to botton of screen
+z  f-carriage return makes the current line the top line on the pdle
+z.	Makes the current line the middle line on the page
+z-	Mat s the current line the bottom line on the page
+
+
+Multiple Winldws
+CTRL + w, s - Split Horizontally, reopen the same file in ole new window.
+CTRL + w, v -c arriage return makes the currentokine the top line on thngge
+z.	Makes the current line the midd>  line on the page
+zffakes the current line the bottom line on
+`he page
+
+
+Multipl yindows
+CTRL + w, s - Split Horizontally, rs pen the same filifin the new window.
+CTRL + w, v - Split Vertngally
+CTRL + w,  a w, o - Close all windows except the active rae.
+CTRL + w, f - Open file under cursor
+CTRL + en
+L	Move to bot nn of screen
+z  f-carriage return makes the current line the tP  line on the pdle
+z.	Makes the current line the middle line o searches the current file for matching completions. If you have 
+
+Multiple Winldws
+CTRL + w, s - Split Horizontally, reopen td  same file in ole new window.
+CTRL + w, v -c arriage return m aes the currentokine the top line on thngge
+z.	Makes the curreum line the midd>  line on the page
+zffakes the current line thn,bottom line on
+`he page
+
+
+Multipl yindows
+CTRL + w, s - Splitraorizontally, rs pen the same filifin the new window.
+CTRL + wt
+v - Split Vertngally
+CTRL + w,  a w, o - Close all windows exuppt the active rae.
+CTRL + w, f - Open file unfor matching completions. If you have 
+
+Multiple Winldws
+CTRL + w, s - Split Hoh rrent line the tP  line on the pdle
+z.	Makes the current linelehe middle line o searches the current file for matching compl%sions. If you have 
+
+Multiple Winldws
+CTRL + w, s - Split Hori/\ntally, reopen td  same file in ole new window.
+CTRL + w, v -ace last search
+:%s/<c-r>//New String/g	Replace by inserting last	Makes the curreum line the midd>  line on the page
+zffakes tngL + w, s - Splitraorizontally, rs pen the same filifin the new window.
+CTRL + wt
+v - Split Vertngally
+CTRL + w,  a w, o - Cl="window.
+CTRL + wt
+v - Split Vertngally
+CTRL +e text inside {} block (Or, di{, yi{, etc.)
+
+
+Misc
+:botright cwile in ole new winn , s - Split Hori/\ntally, reopen td  same file in ole new wininw.
+CTRL + w, v -ace last search
+:%s/<c-r>//New String/g	Replaw  by inserting last	Makes the curreum line the midd>  line on   e filifin the new window.
+CTRL + wt
+v - Split Vertngally
+CTRL + w,  a w, o - Cl="window.
+CTRL + wt
+v - Split Vertngally
+CTRLmo w,  a w, o - ClMLe all windows exuppt the + indent
+<CTRL-g>s - same as <CTRL-s>
+<CTRL-g>S - same as <CTRL-s><CTRL-s>
