@@ -95,19 +95,19 @@ map <C-H> <C-W>h<C-W>\|
 map <C-L> <C-W>l<C-W>\|
 
 " Turn hlsearch off/on with CTRL-N
-:map <silent> <C-N> :se invhlsearch<CR>
+map <silent> <C-N> :se invhlsearch<CR>
 " Toggle display of characters for whitespace
-:map <silent> <leader>s :set nolist!<CR>
+map <silent> <leader>s :set nolist!<CR>
 
-:map \r	:! %:p<CR>
-:map \wr :call WriteRun()<CR>
-:map \jc :call JavaCompile()
-:map \jr :call JavaRun()
-:map \fsif :call FormatSQLInsertFields()
+map \r	:! %:p<CR>
+map \wr :call WriteRun()<CR>
+map \jc :call JavaCompile()
+map \jr :call JavaRun()
+map \fsif :call FormatSQLInsertFields()
 
 "Comment visually selected lines
-:map <leader># :s/^/#/g<CR>:noh<CR>j
-:map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
+map <leader># :s/^/#/g<CR>:noh<CR>j
+map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
 
 "nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 "imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
