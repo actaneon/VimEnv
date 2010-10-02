@@ -36,9 +36,10 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "set directory=c:\temp
 "set viminfo=c:\temp\_viminfo
 
-
 colorscheme torte
+"colorscheme koehler
 "colorscheme vividchalk
+"colorscheme elflord
 
 
 " Switch syntax highlighting on, when the terminal has colors
