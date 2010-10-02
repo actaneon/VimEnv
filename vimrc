@@ -11,30 +11,23 @@ set scrolloff=2
 set shiftwidth=4
 set tabstop=4
 set showcmd							" display incomplete commands
-set ignorecase
 set smartcase           			" case sensitive only if search contains uppercase
-set guioptions+=b					" horizontal scrolling
 set wildmenu 						" :e tab completion file browsing
 set wildmode=longest:full 			" make file tab completion act like Bash (full or list)
 set cf  							" Enable error files & error jumping.
 set laststatus=2  					" Always show status line.
 set listchars=tab:>-,trail:.,eol:$
-let g:netrw_altv = 1    			" Vsplit right in :Explore mode
+let g:netrw_altv=1    				" Vsplit right in :Explore mode
 set vb 								" turns off visual bell
-
-set go-=T							"keep MacVim toolbar hidden
+set go-=T							" keep MacVim toolbar hidden
 
 "set cindent
 "set smartindent
 
-"Highlight current line
-"set cursorline
+" Highlight current line
+"set nocursorline
 
-" Required for <C-{H,J,K,L}> mappings below
-set winminheight=0      " Allow windows to get fully squashed
-set winminwidth=0      " Allow windows to get fully squashed
-
-"" Store temporary files in a central spot
+" Store temporary files in a central spot
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
  
@@ -43,8 +36,10 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "set directory=c:\temp
 "set viminfo=c:\temp\_viminfo
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
+
+colorscheme torte
+"colorscheme vividchalk
+
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -53,12 +48,18 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
+
 if has("gui_running")
   "set autochdir
 endif
 
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
+  "Reload vimrc on write.  Nice if it was opened within a tab/window of the same
+  "vim instance
+  autocmd! bufwritepost .vimrc source %
+
   "Always change to directory of current file
   autocmd BufEnter * lcd %:p:h 
 
@@ -88,44 +89,52 @@ else
   set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
-colorscheme torte
-"colorscheme vividchalk
-"highlight Normal guibg=Black guifg=White	"Windows, use if no colorscheme
 
+"===================="
+"= Keyboard Mappings " 
+"===================="
 
 let mapleader=","
 
-"" Switch between windows, maximizing the current window
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-H> <C-W>h<C-W>\|
-map <C-L> <C-W>l<C-W>\|
+" Don't use Ex mode, use Q for formatting
+map Q gq
 
-" Turn hlsearch off/on with CTRL-N
-map <silent> <C-N> :se invhlsearch<CR>
+" Split Edit / Reload Vim Config
+map <leader>v :tabnew $MYVIMRC<CR>
+map <leader>V :source $MYVIMRC<CR>
+
+" Switch between windows
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+
+" Turn hlsearch off/on 
+map <silent> <c-n> :se invhlsearch<CR>
+
 " Toggle display of characters for whitespace
 map <silent> <leader>s :set nolist!<CR>
 
-"This unsets the "last search pattern" register 
-nnoremap <esc> :nohlsearch<return><esc>
-
-"Execute current file 
-map \r	:! %:p<CR>
-
-"Write then Execute current file 
-map \wr :call WriteRun()<CR>
-
-map \jc :call JavaCompile()
-map \jr :call JavaRun()
-map \fsif :call FormatSQLInsertFields()
+"This unsets the "last search pattern" register, turns off hilighting, can continue search using n/N
+nnoremap <silent> <esc> :nohlsearch<return><esc>
 
 "Comment visually selected lines
 map <leader># :s/^/#/g<CR>:noh<CR>j
+map <leader>" :s/^/"/g<CR>:noh<CR>j
 map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
 
-nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-map <F2> "+p
+"Execute current file 
+"map <leader>r :! %:p<CR>
+
+"Write then Execute current file 
+map <leader>r :w<CR>:! %:p<CR>
+
+" Run rspec 
+"nnoremap <leader>t :call Spec()<CR>
+nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
+nnoremap <leader>T :call RunAllTests('')<cr>
+"nnoremap <leader>l :call Rerun...
+ 
 
 "let generate_tags=1
 "let g:ctags_statusline=1 
@@ -134,15 +143,32 @@ map <F2> "+p
 let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
 let Tlist_WinWidth = 50
 "map <F4> :Tlist<cr>
+"
 
-" Run rspec 
-"nnoremap <leader>t :call Spec()<CR>
+"let g:TagsParserDebugTime = 1
+"let g:TagsParserDebugFlag = 4
+"
+"let g:TagsParserTagsProgram = "/opt/local/bin/ctags"
+"let g:TagsParserLastPositionJump = 1
+"let g:TagsParserCurrentFileCWD = 1
+"let g:TagsParserFoldColumnDisabled = 1
+"let g:TagsParserWindowSize = 30
+"let g:TagsParserAutoOpenClose = 1
+"let g:TagsParserSingleClick = 1
+"let g:TagsParserHighlightCurrentTag = 1
+"let g:TagsParserSortType = "line"
+"
+let g:TagsParserCtrlTabUsage = 'tabs'
+let g:TagsParserProjectConfig = {}
+let g:TagsParserProjectConfig['/Users/jking/dev/GetSatisfaction/satisfaction'] = { 'tagsPath' : '/Users/jking/dev/GetSatisfaction/satisfaction,/Users/jking/dev/GetSatisfaction/satisfaction/**' }
 
-nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
-nnoremap <leader>T :call RunAllTests('')<cr>
- 
+let g:TagsParserTagsPath = "/Users/jking/dev/GetSatisfaction/satisfaction"
 
-function Spec()
+
+
+
+"use function! to overwrite when resourcing the vimrc
+function! Spec()
 	if executable("rspec")
 		!rspec %
 	else
@@ -150,25 +176,8 @@ function Spec()
 	endif
 endfunction
 
-function WriteRun()
+function! WriteRun()
 	w | ! %:p
-endfunction
-
-function JavaCompile()
-	if executable("javac")
-		!javac "%"
-	else
-	endif
-endfunction
-
-function JavaRun()
-	!java "%:r"
-endfunction
-
-function FormatSQLInsertFields()
-	g/^$/ d
-	1,$-1s/$/,/
-	%s/^/\t\t\t/
 endfunction
 
 
@@ -280,7 +289,7 @@ endfunction
 "   let g:FuzzyFinderOptions.MruFile.max_item = 200
 "   let g:FuzzyFinderOptions.MruCmd.max_item = 200
 "   nnoremap <silent> <C-n>      :FuzzyFinderBuffer<CR>
-   nnoremap <silent> <C-m>      :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+"  nnoremap <silent> <C-m>      :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
 "   nnoremap <silent> <C-j>      :FuzzyFinderMruFile<CR>
 "   nnoremap <silent> <C-k>      :FuzzyFinderMruCmd<CR>
 "   nnoremap <silent> <C-p>      :FuzzyFinderDir <C-r>=expand('%:p:~')[:-1-len(expand('%:p:~:t'))]<CR><CR>
