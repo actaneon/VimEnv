@@ -50,7 +50,6 @@ colorscheme torte
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
   let project_path = getcwd()
-
 endif
 
 
@@ -149,6 +148,11 @@ nnoremap <leader>T :call RunAllTests('')<cr>
 "nnoremap <leader>l :call Rerun...
  
 
+"Fuzzy Finder Custom Coverage File
+nnoremap <silent><leader>fa :call FufProject(project_path)<CR>
+nnoremap <silent><leader>fs :call FufSatisfaction(project_path)<CR>
+
+
 "let generate_tags=1
 "let g:ctags_statusline=1 
 "let ctags_path="/opt/local/bin/ctags"
@@ -176,7 +180,6 @@ let g:TagsParserProjectConfig = {}
 let g:TagsParserProjectConfig['/Users/jking/dev/GetSatisfaction/satisfaction'] = { 'tagsPath' : '/Users/jking/dev/GetSatisfaction/satisfaction,/Users/jking/dev/GetSatisfaction/satisfaction/**' }
 
 let g:TagsParserTagsPath = "/Users/jking/dev/GetSatisfaction/satisfaction"
-
 
 
 
@@ -287,29 +290,14 @@ function! GreenBar()
 endfunction
 
 
+function! FufProject(path)
+	let g:fuf_coveragefile_globPatterns=[a:path.'/**/*']
+	FufCoverageFile
+endfunction
 
-" Fuzzy Finder Setting Example:
-"   let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'FavFile':{}, 'Tag':{}, 'TaggedFile':{}}
-"   let g:FuzzyFinderOptions.Base.ignore_case = 1
-"   let g:FuzzyFinderOptions.Base.abbrev_map  = {
-"         \   '\C^VR' : [
-"         \     '$VIMRUNTIME/**',
-"         \     '~/.vim/**',
-"         \     '$VIM/.vim/**',
-"         \     '$VIM/vimfiles/**',
-"         \   ],
-"         \ }
-"   let g:FuzzyFinderOptions.MruFile.max_item = 200
-"   let g:FuzzyFinderOptions.MruCmd.max_item = 200
-"   nnoremap <silent> <C-n>      :FuzzyFinderBuffer<CR>
-"   nnoremap <silent> <C-m>      :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
-"   nnoremap <silent> <C-j>      :FuzzyFinderMruFile<CR>
-"   nnoremap <silent> <C-k>      :FuzzyFinderMruCmd<CR>
-"   nnoremap <silent> <C-p>      :FuzzyFinderDir <C-r>=expand('%:p:~')[:-1-len(expand('%:p:~:t'))]<CR><CR>
-"   nnoremap <silent> <C-f><C-d> :FuzzyFinderDir<CR>
-"   nnoremap <silent> <C-f><C-f> :FuzzyFinderFavFile<CR>
-"   nnoremap <silent> <C-f><C-t> :FuzzyFinderTag!<CR>
-"   nnoremap <silent> <C-f><C-g> :FuzzyFinderTaggedFile<CR>
-"   noremap  <silent> g]         :FuzzyFinderTag! <C-r>=expand('<cword>')<CR><CR>
-"   nnoremap <silent> <C-f>F     :FuzzyFinderAddFavFile<CR>
-"   nnoremap <silent> <C-f><C-e> :FuzzyFinderEditInfo<CR>
+function! FufSatisfaction(path)
+	let g:fuf_coveragefile_globPatterns=[a:path.'/app/**/*', a:path.'/api/**/*', a:path.'/spec/**/*']
+	FufCoverageFile
+endfunction
+
+
