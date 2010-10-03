@@ -2,30 +2,35 @@ call pathogen#runtime_append_all_bundles()
 
 set nocompatible
 set backspace=indent,eol,start 		" allow backspacing over everything in insert mode
-set incsearch						" do incremental searching
 set history=50						" keep 50 lines of command line history
+set hidden 							" you can change buffers without saving
 set nobackup
-set nowrap
-set ruler							" show the cursor position all the time
-set scrolloff=2
+set nowrap							" Don't wrap text
+set scrolloff=2						" Keep 2 lines top/bottom visible for scope
 set shiftwidth=4
 set tabstop=4
 set showcmd							" display incomplete commands
+set incsearch						" do incremental searching
 set smartcase           			" case sensitive only if search contains uppercase
 set wildmenu 						" :e tab completion file browsing
 set wildmode=longest:full 			" make file tab completion act like Bash (full or list)
 set cf  							" Enable error files & error jumping.
-set laststatus=2  					" Always show status line.
 set listchars=tab:>-,trail:.,eol:$
 let g:netrw_altv=1    				" Vsplit right in :Explore mode
 set vb 								" turns off visual bell
 set go-=T							" keep MacVim toolbar hidden
 
+set laststatus=2  					" Always show status line
+set ruler							" show the cursor position in the status line
+"set cursorline						" Highlight current line
+"set cursorcolumn					" Highlight current column
+"set number							" turn on line numbers
+
+set formatoptions=rq 				" Automatically insert comment leader on return, and let gq format comments
+
+
 "set cindent
 "set smartindent
-
-" Highlight current line
-"set nocursorline
 
 " Store temporary files in a central spot
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/tmp
@@ -40,6 +45,13 @@ colorscheme torte
 "colorscheme koehler
 "colorscheme vividchalk
 "colorscheme elflord
+
+
+if !exists("autocommands_loaded")
+  let autocommands_loaded = 1
+  let project_path = getcwd()
+
+endif
 
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -290,7 +302,7 @@ endfunction
 "   let g:FuzzyFinderOptions.MruFile.max_item = 200
 "   let g:FuzzyFinderOptions.MruCmd.max_item = 200
 "   nnoremap <silent> <C-n>      :FuzzyFinderBuffer<CR>
-"  nnoremap <silent> <C-m>      :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+"   nnoremap <silent> <C-m>      :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
 "   nnoremap <silent> <C-j>      :FuzzyFinderMruFile<CR>
 "   nnoremap <silent> <C-k>      :FuzzyFinderMruCmd<CR>
 "   nnoremap <silent> <C-p>      :FuzzyFinderDir <C-r>=expand('%:p:~')[:-1-len(expand('%:p:~:t'))]<CR><CR>
