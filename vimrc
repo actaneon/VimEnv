@@ -160,27 +160,6 @@ nnoremap <silent><leader>fs :call FufSatisfaction(project_path)<CR>
 let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
 let Tlist_WinWidth = 50
 "map <F4> :Tlist<cr>
-"
-
-"let g:TagsParserDebugTime = 1
-"let g:TagsParserDebugFlag = 4
-"
-"let g:TagsParserTagsProgram = "/opt/local/bin/ctags"
-"let g:TagsParserLastPositionJump = 1
-"let g:TagsParserCurrentFileCWD = 1
-"let g:TagsParserFoldColumnDisabled = 1
-"let g:TagsParserWindowSize = 30
-"let g:TagsParserAutoOpenClose = 1
-"let g:TagsParserSingleClick = 1
-"let g:TagsParserHighlightCurrentTag = 1
-"let g:TagsParserSortType = "line"
-"
-let g:TagsParserCtrlTabUsage = 'tabs'
-let g:TagsParserProjectConfig = {}
-let g:TagsParserProjectConfig['/Users/jking/dev/GetSatisfaction/satisfaction'] = { 'tagsPath' : '/Users/jking/dev/GetSatisfaction/satisfaction,/Users/jking/dev/GetSatisfaction/satisfaction/**' }
-
-let g:TagsParserTagsPath = "/Users/jking/dev/GetSatisfaction/satisfaction"
-
 
 
 "use function! to overwrite when resourcing the vimrc
