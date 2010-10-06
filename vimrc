@@ -72,6 +72,8 @@ if has("autocmd")
   "vim instance
   autocmd! bufwritepost .vimrc source %
 
+  autocmd! bufwritepost *.rb silent call UpdateTags()
+
   "Always change to directory of current file
   autocmd BufEnter * lcd %:p:h 
 
@@ -280,3 +282,14 @@ function! FufSatisfaction(path)
 endfunction
 
 
+let g:enableTags = 0
+
+function! EnableTags()
+	let g:enableTags = 1
+endfunction
+
+function! UpdateTags()
+	if g:enableTags == 1
+		:execute ':!ctags -f '.g:project_path.'/tags -R '.g:project_path.'/ *.rb &'
+	endif
+endfunction
