@@ -76,7 +76,7 @@ if has("autocmd")
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
   "Always change to directory of current file
-  autocmd BufEnter * lcd %:p:h 
+  "autocmd BufEnter * lcd %:p:h 
 
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
