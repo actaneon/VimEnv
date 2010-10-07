@@ -12,6 +12,7 @@ set tabstop=4
 set showcmd							" display incomplete commands
 set incsearch						" do incremental searching
 set smartcase           			" case sensitive only if search contains uppercase
+set ignorecase						" Needs to be present for smartcase to work as intended
 set wildmenu 						" :e tab completion file browsing
 set wildmode=longest:full 			" make file tab completion act like Bash (full or list)
 set cf  							" Enable error files & error jumping.
