@@ -155,6 +155,9 @@ nnoremap <leader>T :call RunAllTests('')<cr>
 nnoremap <silent><leader>fa :call FufProject(project_path)<CR>
 nnoremap <silent><leader>fs :call FufSatisfaction(project_path)<CR>
 
+"NERDTree
+map <leader>nt :NERDTree<CR>
+
 
 "let generate_tags=1
 "let g:ctags_statusline=1 
