@@ -131,7 +131,7 @@ map <silent> <c-n> :se invhlsearch<CR>
 map <silent> <leader>s :set nolist!<CR>
 
 "This unsets the "last search pattern" register, turns off hilighting, can continue search using n/N
-nnoremap <silent> <esc> :nohlsearch<return><esc>
+map <leader>hs :nohlsearch<CR>
 
 "Comment visually selected lines
 map <leader># :s/^/#/g<CR>:noh<CR>j
