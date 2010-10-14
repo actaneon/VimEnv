@@ -25,7 +25,7 @@ set laststatus=2  					" Always show status line
 set ruler							" show the cursor position in the status line
 "set cursorline						" Highlight current line
 "set cursorcolumn					" Highlight current column
-"set number							" turn on line numbers
+set number							" turn on line numbers
 
 set formatoptions=rq 				" Automatically insert comment leader on return, and let gq format comments
 
