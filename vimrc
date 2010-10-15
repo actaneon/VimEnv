@@ -301,5 +301,6 @@ endfunction
 function! UpdateTags()
 	if g:enableTags == 1
 		:execute ':!ctags -f '.g:project_path.'/tags -R '.g:project_path.'/ *.rb &'
+		":Rtags	 "Possilbe alternative but dependend on Rails plugin and being rails project.
 	endif
 endfunction
