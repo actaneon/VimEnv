@@ -1,4 +1,4 @@
-:set all		List all the possible vim features
+:set all	List all the possible vim features
 
 Exiting/Saving
 :wa			write all.
@@ -8,6 +8,7 @@ Exiting/Saving
 Shell
 :!pwd		Execute the pwd unix command, then returns to Vi
 !!pwd		Execute the pwd unix command and insert output in file
+:r!pwd		Run command and insert output on current line
 
 
 File Browsing
@@ -24,20 +25,20 @@ z-			Makes the current line the bottom line on the page
 
 
 Multiple Windows
-CTRL + w, s		Split Horizontally, reopen the same file in the new window.
-CTRL + w, v		Split Vertically
-CTRL + w, n		Opens a Blank Window
-CTRL + w, c		Close active window
-CTRL + w, o		Close all windows except the active one.
-CTRL + w, f		Open file under cursor
-CTRL + w, r		Rotate windows
-CTRL + w, x		Swap window with next one
-CTRL + w, w 	Move between the windows, in order.
-CTRL + w, _		Maximise current window
-CTRL + w, =		Gives the same size to all windows
-CTRL + w T		Turn split into a new tab
-CTRL + w, h/j/k/l	Move focus to corresponding window.
-CTRL + w, UP/DOWN/RIGHT/LEFT	Move focus to corresponding window.
+<C-w>, s		Split Horizontally, reopen the same file in the new window.
+<C-w>, v		Split Vertically
+<C-w>, n		Opens a Blank Window
+<C-w>, c		Close active window
+<C-w>, o		Close all windows except the active one.
+<C-w>, f		Open file under cursor
+<C-w>, r		Rotate windows
+<C-w>, x		Swap window with next one
+<C-w>, w 		Move between the windows, in order.
+<C-w>, _		Maximise current window
+<C-w>, =		Gives the same size to all windows
+<C-w>, T		Turn split into a new tab
+<C-w>, h/j/k/l	Move focus to corresponding window.
+<C-w>, UP/DOWN/RIGHT/LEFT	Move focus to corresponding window.
 
 
 Diff
@@ -90,8 +91,27 @@ If you need to delete an entire function block, place cursor at either one of th
 
 
 Autocomplete
-CTRL + n and CTRL + p will open the autocompletion box. You can use UP and DOWN to select one option and ENTER to use that word.
-VIM searches the current file for matching completions. If you have tags then VIM will search the whole tags for matches
+<C-n> or <C-p>		Searches current file as well as tags file if present. 
+
+
+Tag Search
+:tag start-of-tag-name_TAB	Go to tag with tab name completion (1st tab will show listing, 2nd will take first partial match and cycle through)
+:tag /search-string			Search for string anywhere in tag
+:tselect <function-name>	This will give you a listing of all matches where you can select the match to use.  
+
+	First two allow wildcard matching using .* or *.
+	For tselect, you must use a full declaration name or use / to search (with wildcards)
+
+
+Tag Navigation
+<C-]>		Follow tag
+<C-t>		Go back a level
+:tags 		Show tags stack
+:tp			Previous Tag
+:tn			Next Tag	
+:tf			First Tag
+:tl			Last Tag
+(can prefix these with numbers)
 
 
 Keyword Program
@@ -108,31 +128,46 @@ vE~		Modify word case
 ggguG	Set all text to lowercase
 
 
+History
+q: 	Show Command History in new window
+q/	Show Search History in new window
+
+
+Registers
+@*		Clipboard
+@: 		Last command
+@/ 		Last search
+
+":p		Paste the last command
+"/p		Paste the last search
+@: 		Repeat the last command
+
+
 Search
-*		Search for word under cursor
+# or *	Search for word under cursor
 /word	Search word from top to bottom
 ?word	Search word from bottom to top
 gd gD	local, global definition of symbol under cursor
 :g/search_term/#	Search results summary with line numbers
 
-Replace
+Replace / Regex
 :g/string/d				Delete all lines containing string
-:v/string/d				Delete all lines which didn?t contain string
+:v/string/d				Delete all lines which didn't contain string
 :g/^$/ d				Delete all empty lines in a file
 :g/^$/,/./-j			Reduce multiple blank lines to a single blank
 :%s#<[^>]\+>##g			Delete HTML tags but keeps text
 :%s/^\(.*\)\n\1$/\1/	Delete lines which appears twice
 
-:%s//New String/g			Replace last search
-:%s/<c-r>//New String/g		Replace by inserting last search register
-:%s/<c-r> a//New String/g	Replace by inserting last search from register a
+:%s//REPLACE/g			Replace last search
+:%s/<c-r>//REPLACE/g	Replace by inserting last search register
+:%s/<c-r> a//REPLACE/g	Replace by inserting last search from register a
+
+:%s/Storage=".\{-}" //		Non-greedy replace
+:%s/<!--\_.\{-}-->//		delete HTML comments, potentially spanning multiple lines
+
 
 <c-a>		Increment number under the cursor
 <c-x>		Decrement number under cursor
-
-Regex
-:%s/Storage=".\{-}" //		Non-greedy replace
-:%s/<!--\_.\{-}-->//		delete HTML comments, potentially spanning multiple lines
 
 
 :vimgrep /pattern/gj ./**/*.rb		# Follow with :cw to list each match which can be selected
@@ -166,7 +201,7 @@ S		In visual mode, add a surrounding but place text on new line + indent it
 
 Insert mode
 -----------
-<CTRL-s>			In insert mode, add a surrounding
-<CTRL-s><CTRL-s>	In insert mode, add a new line + surrounding + indent
-<CTRL-g>s			Same as <CTRL-s>
-<CTRL-g>S			Same as <CTRL-s><CTRL-s>
+<C-s>			In insert mode, add a surrounding
+<C-s><C-s>		In insert mode, add a new line + surrounding + indent
+<C-g>s			Same as <C-s>
+<C-g>S			Same as <C-s><C-s>
