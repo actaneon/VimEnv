@@ -64,6 +64,9 @@ endif
 
 if has("gui_running")
   "set autochdir
+
+  "Auto write all files when focus is lost, including Cmd-Tab in MacVim
+  "autocmd FocusLost * :wall
 endif
 
 
