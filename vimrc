@@ -14,7 +14,7 @@ set incsearch						" do incremental searching
 set smartcase           			" case sensitive only if search contains uppercase
 set ignorecase						" Needs to be present for smartcase to work as intended
 set wildmenu 						" :e tab completion file browsing
-set wildmode=longest:full 			" make file tab completion act like Bash (full or list)
+set wildmode=list:longest,full		" List all matches on first TAB, complete/cycle on second TAB
 set cf  							" Enable error files & error jumping.
 set listchars=tab:>-,trail:.,eol:$
 let g:netrw_altv=1    				" Vsplit right in :Explore mode
