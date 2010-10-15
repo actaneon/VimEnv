@@ -145,6 +145,7 @@ map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
 map <leader>r :w<CR>:! %:p<CR>
 
 " Run rspec 
+nmap <leader>tc <ESC>:call TestCommand()<CR>
 "nnoremap <leader>t :call Spec()<CR>
 nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
 nnoremap <leader>T :call RunAllTests('')<cr>
@@ -169,6 +170,11 @@ let Tlist_WinWidth = 50
 
 
 "use function! to overwrite when resourcing the vimrc
+function! TestCommand()
+	let @* = "spec ".expand('%:p').":".line(".")
+	echo "Copied to clipboard: ".@*
+endfunction
+
 function! Spec()
 	if executable("rspec")
 		!rspec %
