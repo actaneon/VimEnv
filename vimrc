@@ -148,7 +148,7 @@ map <leader>hs :nohlsearch<CR>
 "map <leader>r :! %:p<CR>
 
 "Write then Execute current file
-map <leader>r :w<CR>:! %:p<CR>
+map <leader>x :w<CR>:! %:p<CR>
 
 " Run rspec
 nmap <leader>tc <ESC>:call TestCommand()<CR>
@@ -322,3 +322,17 @@ function! UpdateTags()
 	endif
 endfunction
 
+
+function! TabMessage(cmd)
+	redir => message
+	silent ! a:cmd
+	redir END
+	tabnew
+	silent put=message
+	set nomodified
+endfunction
+
+" Create custom command for Function
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args
+
+so ~/.vim/ruby-refactoring.vim
