@@ -17,16 +17,14 @@ set wildmenu 						" :e tab completion file browsing
 set wildmode=list:longest,full		" List all matches on first TAB, complete/cycle on second TAB
 set cf								" Enable error files & error jumping.
 set listchars=tab:>-,trail:.,eol:$
-let g:netrw_altv=1					" Vsplit right in :Explore mode
 set vb 								" turns off visual bell
-set go-=T							" keep MacVim toolbar hidden
-
+set splitbelow						" Open new horizontal split windows below current
+set splitright						" Open new vertical split windows to the right
 set laststatus=2					" Always show status line
 set ruler							" show the cursor position in the status line
 "set cursorline						" Highlight current line
 "set cursorcolumn					" Highlight current column
 set number							" turn on line numbers
-
 set formatoptions=rq				" Automatically insert comment leader on return, and let gq format comments
 
 "set cindent
@@ -35,7 +33,7 @@ set formatoptions=rq				" Automatically insert comment leader on return, and let
 " Store temporary files in a central spot
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
- 
+
 " Windows Only
 "set backupdir=c:\temp
 "set directory=c:\temp
@@ -64,6 +62,10 @@ endif
 
 
 if has("gui_running")
+  set go-=T							" keep MacVim toolbar hidden
+  "set guioptions-=rL				" Scrollbar always off
+  set fuoptions=maxvert,maxhorz		" fullscreen maximizes vertically AND horizontally
+
   "set autochdir
 
   "Auto write all files when focus is lost, including Cmd-Tab in MacVim
@@ -77,10 +79,13 @@ if has("autocmd")
   "vim instance
   autocmd! bufwritepost .vimrc source %
 
+  " kill trailing spaces when exiting file
+  autocmd BufWritePre * :%s/\s\+$//e
+
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
   "Always change to directory of current file
-  "autocmd BufEnter * lcd %:p:h 
+  "autocmd BufEnter * lcd %:p:h
 
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -111,9 +116,9 @@ endif " has("autocmd")
 let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
 let Tlist_WinWidth = 50
 
-"===================="
-"= Keyboard Mappings " 
-"===================="
+"==================="
+" Keyboard Mappings "
+"==================="
 
 let mapleader=","
 
@@ -130,7 +135,7 @@ map <C-K> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 
-" Turn hlsearch off/on 
+" Turn hlsearch off/on
 map <silent> <leader>hs :set invhlsearch<CR>
 
 " Toggle display of characters for whitespace
@@ -139,29 +144,50 @@ map <silent> <leader>s :set nolist!<CR>
 "This unsets the "last search pattern" register, turns off hilighting, can continue search using n/N
 map <leader>hs :nohlsearch<CR>
 
-"Comment visually selected lines
-map <leader># :s/^/#/g<CR>:noh<CR>j
-map <leader>" :s/^/"/g<CR>:noh<CR>j
-map <leader>/ :s/^/\/\//g<CR>:noh<CR>j
-
-"Execute current file 
+"Execute current file
 "map <leader>r :! %:p<CR>
 
-"Write then Execute current file 
+"Write then Execute current file
 map <leader>r :w<CR>:! %:p<CR>
 
-" Run rspec 
+" Run rspec
 nmap <leader>tc <ESC>:call TestCommand()<CR>
 "nnoremap <leader>t :call Spec()<CR>
 "nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
 "nnoremap <leader>T :call RunAllTests('')<cr>
 "nnoremap <leader>l :call Rerun...
 
-map <leader>nt :NERDTree<CR>
+map <leader>nt :NERDTreeToggle<CR>
 map <leader>tl :Tlist<CR>
 map <leader>fa :call VimGrep()<CR>
 map <leader>ft :FufTag<CR>
 map <leader>ff :CommandT<CR>
+
+" TABS: Firefox style, open tabs with command-<tab number>
+map <silent> <D-1> :tabn 1<CR>
+map <silent> <D-2> :tabn 2<CR>
+map <silent> <D-3> :tabn 3<CR>
+map <silent> <D-4> :tabn 4<CR>
+map <silent> <D-5> :tabn 5<CR>
+map <silent> <D-6> :tabn 6<CR>
+map <silent> <D-7> :tabn 7<CR>
+map <silent> <D-8> :tabn 8<CR>
+map <silent> <D-9> :tabn 9<CR>
+
+" bind command-] to shift right
+nmap <D-]> >>
+vmap <D-]> >>
+imap <D-]> <C-O>>>
+
+" bind command-[ to shift left
+nmap <D-[> <<
+vmap <D-[> <<
+imap <D-[> <C-O><<
+
+" bind command-/ to toggle comment (requires NERD Commenter)
+nmap <D-/> ,c<Space>
+vmap <D-/> ,c<Space>
+imap <D-/> <C-O>,c<Space>
 
 
 "use function! to overwrite when resourcing the vimrc
@@ -296,17 +322,3 @@ function! UpdateTags()
 	endif
 endfunction
 
-
-function! TabMessage(cmd)
-	redir => message
-	silent ! a:cmd
-	redir END
-	tabnew
-	silent put=message
-	set nomodified
-endfunction
-
-command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
-
-" Create custom command for Function
-" command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
