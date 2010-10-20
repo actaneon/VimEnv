@@ -1,4 +1,5 @@
 :set all	List all the possible vim features
+:reg		List all registers
 
 Exiting/Saving
 :wa			write all.

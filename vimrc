@@ -1,9 +1,9 @@
 call pathogen#runtime_append_all_bundles()
 
 set nocompatible
-set backspace=indent,eol,start 		" allow backspacing over everything in insert mode
+set backspace=indent,eol,start		" allow backspacing over everything in insert mode
 set history=50						" keep 50 lines of command line history
-set hidden 							" you can change buffers without saving
+set hidden							" you can change buffers without saving
 set nobackup
 set nowrap							" Don't wrap text
 set scrolloff=2						" Keep 2 lines top/bottom visible for scope
@@ -11,24 +11,23 @@ set shiftwidth=4
 set tabstop=4
 set showcmd							" display incomplete commands
 set incsearch						" do incremental searching
-set smartcase           			" case sensitive only if search contains uppercase
+set smartcase						" case sensitive only if search contains uppercase
 set ignorecase						" Needs to be present for smartcase to work as intended
 set wildmenu 						" :e tab completion file browsing
 set wildmode=list:longest,full		" List all matches on first TAB, complete/cycle on second TAB
-set cf  							" Enable error files & error jumping.
+set cf								" Enable error files & error jumping.
 set listchars=tab:>-,trail:.,eol:$
-let g:netrw_altv=1    				" Vsplit right in :Explore mode
+let g:netrw_altv=1					" Vsplit right in :Explore mode
 set vb 								" turns off visual bell
 set go-=T							" keep MacVim toolbar hidden
 
-set laststatus=2  					" Always show status line
+set laststatus=2					" Always show status line
 set ruler							" show the cursor position in the status line
 "set cursorline						" Highlight current line
 "set cursorcolumn					" Highlight current column
 set number							" turn on line numbers
 
-set formatoptions=rq 				" Automatically insert comment leader on return, and let gq format comments
-
+set formatoptions=rq				" Automatically insert comment leader on return, and let gq format comments
 
 "set cindent
 "set smartindent
@@ -43,6 +42,8 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "set viminfo=c:\temp\_viminfo
 
 colorscheme torte
+"colorscheme twilight
+"colorscheme twilight2
 "colorscheme koehler
 "colorscheme vividchalk
 "colorscheme elflord
@@ -107,6 +108,8 @@ else
   set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
+let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+let Tlist_WinWidth = 50
 
 "===================="
 "= Keyboard Mappings " 
@@ -115,7 +118,7 @@ endif " has("autocmd")
 let mapleader=","
 
 " Don't use Ex mode, use Q for formatting
-map Q gq
+"map Q gq
 
 " Split Edit / Reload Vim Config
 map <leader>v :tabnew $MYVIMRC<CR>
@@ -128,7 +131,7 @@ map <C-H> <C-W>h
 map <C-L> <C-W>l
 
 " Turn hlsearch off/on 
-map <silent> <c-n> :se invhlsearch<CR>
+map <silent> <leader>hs :set invhlsearch<CR>
 
 " Toggle display of characters for whitespace
 map <silent> <leader>s :set nolist!<CR>
@@ -150,26 +153,15 @@ map <leader>r :w<CR>:! %:p<CR>
 " Run rspec 
 nmap <leader>tc <ESC>:call TestCommand()<CR>
 "nnoremap <leader>t :call Spec()<CR>
-nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
-nnoremap <leader>T :call RunAllTests('')<cr>
+"nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
+"nnoremap <leader>T :call RunAllTests('')<cr>
 "nnoremap <leader>l :call Rerun...
- 
 
-"Fuzzy Finder Custom Coverage File
-nnoremap <silent><leader>fa :call FufProject(project_path)<CR>
-nnoremap <silent><leader>fs :call FufSatisfaction(project_path)<CR>
-
-"NERDTree
 map <leader>nt :NERDTree<CR>
-
-
-"let generate_tags=1
-"let g:ctags_statusline=1 
-"let ctags_path="/opt/local/bin/ctags"
-
-let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
-let Tlist_WinWidth = 50
-"map <F4> :Tlist<cr>
+map <leader>tl :Tlist<CR>
+map <leader>fa :call VimGrep()<CR>
+map <leader>ft :FufTag<CR>
+map <leader>ff :CommandT<CR>
 
 
 "use function! to overwrite when resourcing the vimrc
@@ -192,81 +184,81 @@ endfunction
 
 
 function! RunTests(target, args)
-    silent ! echo
-    exec 'silent ! echo -e "\033[1;36mRunning tests in ' . a:target . '\033[0m"'
-    silent w
-    exec "make " . a:target . " " . a:args
+	silent ! echo
+	exec 'silent ! echo -e "\033[1;36mRunning tests in ' . a:target . '\033[0m"'
+	silent w
+	exec "make " . a:target . " " . a:args
 endfunction
 
 function! ClassToFilename(class_name)
-    let understored_class_name = substitute(a:class_name, '\(.\)\(\u\)', '\1_\U\2', 'g')
-    let file_name = substitute(understored_class_name, '\(\u\)', '\L\1', 'g')
-    return file_name
+	let understored_class_name = substitute(a:class_name, '\(.\)\(\u\)', '\1_\U\2', 'g')
+	let file_name = substitute(understored_class_name, '\(\u\)', '\L\1', 'g')
+	return file_name
 endfunction
 
 function! ModuleTestPath()
-    let file_path = @%
-    let components = split(file_path, '/')
-    let path_without_extension = substitute(file_path, '\.rb$', '', '')
-    let test_path = 'tests/unit/' . path_without_extension
-    return test_path
+	let file_path = @%
+	let components = split(file_path, '/')
+	let path_without_extension = substitute(file_path, '\.rb$', '', '')
+	let test_path = 'tests/unit/' . path_without_extension
+	return test_path
 endfunction
 
 function! NameOfCurrentClass()
-    let save_cursor = getpos(".")
-    normal $<cr>
-    "call RubyDec('class', -1)
-    let line = getline('.')
-    call setpos('.', save_cursor)
-    let match_result = matchlist(line, ' *class \+\(\w\+\)')
-    let class_name = ClassToFilename(match_result[1])
-    return class_name
+	let save_cursor = getpos(".")
+	normal $<cr>
+	"call RubyDec('class', -1)
+	let line = getline('.')
+	call setpos('.', save_cursor)
+	let match_result = matchlist(line, ' *class \+\(\w\+\)')
+	let class_name = ClassToFilename(match_result[1])
+	return class_name
 endfunction
 
 function! TestFileForCurrentClass()
-    let class_name = NameOfCurrentClass()
-    let test_file_name = ModuleTestPath() . '/test_' . class_name . '.rb'
-    return test_file_name
+	let class_name = NameOfCurrentClass()
+	let test_file_name = ModuleTestPath() . '/test_' . class_name . '.rb'
+	return test_file_name
 endfunction
 
 function! TestModuleForCurrentFile()
-    let test_path = ModuleTestPath()
-    let test_module = substitute(test_path, '/', '.', 'g')
-    return test_module
+	let test_path = ModuleTestPath()
+	let test_module = substitute(test_path, '/', '.', 'g')
+	return test_module
 endfunction
 
 function! RunTestsForFile(args)
-    if @% =~ 'test_'
-        call RunTests('%', a:args)
-    else
-        let test_file_name = TestModuleForCurrentFile()
-        call RunTests(test_file_name, a:args)
-    endif
+	if @% =~ 'test_'
+		call RunTests('%', a:args)
+	else
+		let test_file_name = TestModuleForCurrentFile()
+		call RunTests(test_file_name, a:args)
+	endif
 endfunction
 
 function! RunAllTests(args)
-    silent ! echo
-    silent ! echo -e "\033[1;36mRunning all unit tests\033[0m"
-    silent w
-    exec "make!" . a:args
+	silent ! echo
+	silent ! echo -e "\033[1;36mRunning all unit tests\033[0m"
+	silent w
+	exec "make!" . a:args
 endfunction
 
 function! JumpToError()
-    if getqflist() != []
-        for error in getqflist()
-            if error['valid']
-                break
-            endif
-        endfor
-        let error_message = substitute(error['text'], '^ *', '', 'g')
-        silent cc!
-        exec ":sbuffer " . error['bufnr']
-        call RedBar()
-        echo error_message
-    else
-        call GreenBar()
-        echo "All tests passed"
-    endif
+	if getqflist() != []
+		for error in getqflist()
+			if error['valid']
+				break
+			endif
+		endfor
+		let error_message = substitute(error['text'], '^ *', '', 'g')
+		silent cc!
+		exec ":sbuffer " . error['bufnr']
+		call RedBar()
+		echo error_message
+	else
+		call GreenBar()
+		echo "All tests passed"
+	endif
 endfunction
 
 function! RedBar()
@@ -284,19 +276,15 @@ function! GreenBar()
 endfunction
 
 
-function! FufProject(path)
-	let g:fuf_coveragefile_globPatterns=[a:path.'/**/*']
-	FufCoverageFile
+function! VimGrep()
+	let pattern = input("Search Pattern: ")
+	let cmd = ':noautocmd vimgrep /'.pattern.'/gj ./**/*.rb'
+	exe cmd
+	:cw
 endfunction
-
-function! FufSatisfaction(path)
-	let g:fuf_coveragefile_globPatterns=[a:path.'/app/**/*', a:path.'/api/**/*', a:path.'/spec/**/*']
-	FufCoverageFile
-endfunction
-
 
 let g:enableTags = 0
-
+command! -complete=command EnableTags call EnableTags()
 function! EnableTags()
 	let g:enableTags = 1
 endfunction
@@ -307,3 +295,18 @@ function! UpdateTags()
 		":Rtags	 "Possilbe alternative but dependend on Rails plugin and being rails project.
 	endif
 endfunction
+
+
+function! TabMessage(cmd)
+	redir => message
+	silent ! a:cmd
+	redir END
+	tabnew
+	silent put=message
+	set nomodified
+endfunction
+
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
+
+" Create custom command for Function
+" command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
