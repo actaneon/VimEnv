@@ -80,7 +80,8 @@ if has("autocmd")
   autocmd! bufwritepost .vimrc source %
 
   " kill trailing spaces when exiting file
-  autocmd BufWritePre * :%s/\s\+$//e
+  " Keeping this disabled.  Messes with existing Git files too much.
+  "autocmd BufWritePre * :%s/\s\+$//e
 
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
