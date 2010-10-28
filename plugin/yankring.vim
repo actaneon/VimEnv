@@ -240,12 +240,12 @@ let s:yr_history_v2_nl     = "\2" " Use double quotes for a special character
 let s:yr_history_v2_nl_pat = "\2"
 let s:yr_history_last_upd  = 0
 let s:yr_history_file_v1   = 
-            \ g:yankring_history_dir.'/'.
+            \ g:yankring_history_dir.'/.'.
             \ g:yankring_history_file.
             \ (g:yankring_share_between_instances==1?'':'_'.v:servername).
             \ '.txt'
 let s:yr_history_file_v2   = 
-            \ g:yankring_history_dir.'/'.
+            \ g:yankring_history_dir.'/.'.
             \ g:yankring_history_file.
             \ (g:yankring_share_between_instances==1?'':'_'.v:servername).
             \ '_v2.txt'

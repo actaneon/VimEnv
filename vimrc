@@ -85,6 +85,8 @@ if has("autocmd")
 
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
+  autocmd! VimLeave * :!rm ~/.yankring_history_v2.txt
+
   "Always change to directory of current file
   "autocmd BufEnter * lcd %:p:h
 
@@ -152,11 +154,12 @@ map <leader>hs :nohlsearch<CR>
 map <leader>x :w<CR>:! %:p<CR>
 
 " Run rspec
-nmap <leader>tc <ESC>:call TestCommand()<CR>
-"nnoremap <leader>t :call Spec()<CR>
+nmap <leader>sc :call TestCommand()<CR>
+nmap <leader>tc :call TestContext()<CR>
+nmap <leader>tf :call TestFile()<CR>
+
 "nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
 "nnoremap <leader>T :call RunAllTests('')<cr>
-"nnoremap <leader>l :call Rerun...
 
 map <leader>nt :NERDTreeToggle<CR>
 map <leader>tl :Tlist<CR>
@@ -197,13 +200,24 @@ function! TestCommand()
 	echo "Copied to clipboard: ".@*
 endfunction
 
-function! Spec()
+function! TestContext()
+	if executable("rspec")
+		let command = "!rspec ".expand('%:p').":".line(".")
+	else
+		let command = "!spec ".expand('%:p').":".line(".")
+	endif
+
+	:execute command
+endfunction
+
+function! TestFile()
 	if executable("rspec")
 		!rspec %
 	else
 		!spec %
 	endif
 endfunction
+
 
 function! WriteRun()
 	w | ! %:p
