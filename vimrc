@@ -1,5 +1,6 @@
 call pathogen#runtime_append_all_bundles()
 
+set enc=utf-8
 set nocompatible
 set backspace=indent,eol,start		" allow backspacing over everything in insert mode
 set history=50						" keep 50 lines of command line history
