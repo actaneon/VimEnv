@@ -323,7 +323,8 @@ endfunction
 
 function! VimGrep()
 	let pattern = input("Search Pattern: ")
-	let cmd = ':noautocmd vimgrep /'.pattern.'/gj ./**/*.rb'
+	"let cmd = ':noautocmd vimgrep /'.pattern.'/gj ./app/**/*.*'
+	let cmd = ':grep -Er "'.pattern.'" app api lib public script spec'
 	exe cmd
 	:cw
 endfunction
