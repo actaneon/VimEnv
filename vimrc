@@ -195,6 +195,9 @@ vmap <D-/> ,c<Space>
 imap <D-/> <C-O>,c<Space>
 
 
+command! W w !sudo tee % > /dev/null
+
+
 "use function! to overwrite when resourcing the vimrc
 function! TestCommand()
 	let @* = "spec ".expand('%:p').":".line(".")
