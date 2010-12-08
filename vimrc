@@ -105,7 +105,7 @@ if has("autocmd")
   autocmd FileType text setlocal textwidth=78
 
   " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
+e " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -323,10 +323,13 @@ endfunction
 
 function! VimGrep()
 	let pattern = input("Search Pattern: ")
-	"let cmd = ':noautocmd vimgrep /'.pattern.'/gj ./app/**/*.*'
-	let cmd = ':grep -Er "'.pattern.'" app api lib public script spec'
+	let filePattern = input("File Pattern: ")
+
+	let cmd = ':noautocmd vimgrep /'.pattern.'/gj ./**/'.filePattern
+	"let cmd = ':grep -Er "'.pattern.'" app api lib public script spec'
+
 	exe cmd
-	:cw
+	cw
 endfunction
 
 
