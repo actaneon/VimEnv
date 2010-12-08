@@ -329,6 +329,51 @@ function! VimGrep()
 	:cw
 endfunction
 
+
+command! -nargs=* -complete=command DiffCheck call DiffCheck(<f-args>)
+function! DiffCheck(...)
+	setlocal errorformat=%f
+	let tmpfile = tempname()
+
+	let g:startspec = a:0 == 1 ? a:1 : ""
+	let g:endspec = a:0 == 1 ? "HEAD" : ""
+
+	let g:startspec = a:0 == 2 ? a:1 : g:startspec
+	let g:endspec = a:0 == 2 ? a:2 : g:endspec
+
+	let refspec = g:startspec." ".g:endspec
+
+	exe ":!git diff --name-only ".refspec."> ".tmpfile
+
+	exe ":cf " . tmpfile
+	cw
+endfunction
+
+command! -complete=command Gd call GitDiff()
+function! GitDiff()
+	exec ":Gdiff ".g:startspec
+endfunction
+
+
+command! -complete=command Gdp call GitDiffPrev()
+function! GitDiffPrev()
+	wincmd k
+	close
+	cp
+	call GitDiff()
+	botright cw 10
+endfunction
+
+command! -complete=command Gdn call GitDiffNext()
+function! GitDiffNext()
+	wincmd k
+	close
+	cn
+	call GitDiff()
+	botright cw 10
+endfunction
+
+
 let g:enableTags = 0
 command! -complete=command EnableTags call EnableTags()
 function! EnableTags()
