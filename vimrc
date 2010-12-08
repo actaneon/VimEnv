@@ -398,6 +398,6 @@ function! TabMessage(cmd)
 endfunction
 
 " Create custom command for Function
-command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 
 so ~/.vim/ruby-refactoring.vim
