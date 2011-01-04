@@ -27,6 +27,7 @@ set ruler							" show the cursor position in the status line
 "set cursorcolumn					" Highlight current column
 set number							" turn on line numbers
 set formatoptions=rq				" Automatically insert comment leader on return, and let gq format comments
+set autoread						" Don't prompt to reread the file if it is unchanged in the editor but modified externally.
 
 "set cindent
 "set smartindent
@@ -168,6 +169,9 @@ map <leader>fa :call VimGrep()<CR>
 map <leader>ft :FufTag<CR>
 map <leader>ff :CommandT<CR>
 
+"Open tag in new tab
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
 " TABS: Firefox style, open tabs with command-<tab number>
 map <silent> <D-1> :tabn 1<CR>
 map <silent> <D-2> :tabn 2<CR>
@@ -200,7 +204,12 @@ command! W w !sudo tee % > /dev/null
 
 "use function! to overwrite when resourcing the vimrc
 function! TestCommand()
-	let @* = "spec ".expand('%:p').":".line(".")
+	if executable("rspec")
+		let @* = "rspec ".expand('%:p').":".line(".")
+	elseif
+		let @* = "spec ".expand('%:p').":".line(".")
+	end
+
 	echo "Copied to clipboard: ".@*
 endfunction
 
