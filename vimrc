@@ -10,6 +10,7 @@ set nowrap							" Don't wrap text
 set scrolloff=2						" Keep 2 lines top/bottom visible for scope
 set shiftwidth=4
 set tabstop=4
+set expandtab						" Auto convert tabs to spaces
 set showcmd							" display incomplete commands
 set incsearch						" do incremental searching
 set smartcase						" case sensitive only if search contains uppercase
@@ -41,9 +42,9 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "set directory=c:\temp
 "set viminfo=c:\temp\_viminfo
 
-colorscheme torte
+"colorscheme torte
 "colorscheme twilight
-"colorscheme twilight2
+colorscheme twilight2
 "colorscheme koehler
 "colorscheme vividchalk
 "colorscheme elflord
@@ -146,9 +147,6 @@ map <silent> <leader>hs :set invhlsearch<CR>
 " Toggle display of characters for whitespace
 map <silent> <leader>s :set nolist!<CR>
 
-"This unsets the "last search pattern" register, turns off hilighting, can continue search using n/N
-map <leader>hs :nohlsearch<CR>
-
 "Execute current file
 "map <leader>r :! %:p<CR>
 
@@ -204,11 +202,7 @@ command! W w !sudo tee % > /dev/null
 
 "use function! to overwrite when resourcing the vimrc
 function! TestCommand()
-	if executable("rspec")
-		let @* = "rspec ".expand('%:p').":".line(".")
-	elseif
-		let @* = "spec ".expand('%:p').":".line(".")
-	end
+    let @* = "spec ".expand('%').":".line(".")
 
 	echo "Copied to clipboard: ".@*
 endfunction
