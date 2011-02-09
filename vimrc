@@ -152,6 +152,9 @@ map <silent> <leader>s :set nolist!<CR>
 "Write then Execute current file
 map <leader>x :w<CR>:! %:p<CR>
 
+"Copy path to clipboard
+nmap <leader>cp :call CopyPathToClipboard()<CR>
+
 " Run rspec
 nmap <leader>sc :call TestCommand()<CR>
 nmap <leader>tc :call TestContext()<CR>
@@ -198,11 +201,14 @@ imap <D-/> <C-O>,c<Space>
 
 command! W w !sudo tee % > /dev/null
 
-
 "use function! to overwrite when resourcing the vimrc
+function! CopyPathToClipboard()
+	let @* = expand('%')
+	echo "Copied to clipboard: ".@*
+endfunction
+
 function! TestCommand()
     let @* = "spec ".expand('%').":".line(".")
-
 	echo "Copied to clipboard: ".@*
 endfunction
 
