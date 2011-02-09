@@ -143,9 +143,6 @@ map <C-K> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 
-" Turn hlsearch off/on
-map <silent> <leader>hs :set invhlsearch<CR>
-
 " Toggle display of characters for whitespace
 map <silent> <leader>s :set nolist!<CR>
 
