@@ -1,6 +1,8 @@
 call pathogen#runtime_append_all_bundles()
 
 set enc=utf-8
+"set guifont=menlo:h12
+
 set nocompatible
 set backspace=indent,eol,start		" allow backspacing over everything in insert mode
 set history=50						" keep 50 lines of command line history
@@ -42,13 +44,13 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "set directory=c:\temp
 "set viminfo=c:\temp\_viminfo
 
+
+"colorscheme koehler
+"colorscheme slate2
 "colorscheme torte
 "colorscheme twilight
 colorscheme twilight2
-"colorscheme koehler
 "colorscheme vividchalk
-"colorscheme elflord
-
 
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
