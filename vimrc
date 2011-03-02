@@ -90,7 +90,7 @@ if has("autocmd")
 
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
-  autocmd! VimLeave * :!rm ~/.yankring_history_v2.txt
+  autocmd! VimLeave * silent :!rm ~/.yankring_history_v2.txt
 
   "Always change to directory of current file
   "autocmd BufEnter * lcd %:p:h
