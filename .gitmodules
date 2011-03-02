@@ -43,3 +43,6 @@
 [submodule "bundle/fakeclip"]
 	path = bundle/fakeclip
 	url = http://github.com/kana/vim-fakeclip.git
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = https://github.com/mileszs/ack.vim.git
