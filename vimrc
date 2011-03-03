@@ -2,6 +2,7 @@ call pathogen#runtime_append_all_bundles()
 
 set enc=utf-8
 "set guifont=menlo:h12
+set guifont=monaco:h12
 
 set nocompatible
 set backspace=indent,eol,start		" allow backspacing over everything in insert mode
@@ -51,6 +52,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "colorscheme twilight
 colorscheme twilight2
 "colorscheme vividchalk
+"colorscheme ir_black
 
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
@@ -164,6 +166,7 @@ nmap <leader>tf :call TestFile()<CR>
 "nnoremap <leader>T :call RunAllTests('')<cr>
 
 map <leader>nt :NERDTreeToggle<CR>
+map <leader>nf :NERDTreeFind<CR>
 map <leader>tl :Tlist<CR>
 map <leader>fa :call VimGrep()<CR>
 map <leader>ft :FufTag<CR>
@@ -198,6 +201,10 @@ nmap <D-/> ,c<Space>
 vmap <D-/> ,c<Space>
 imap <D-/> <C-O>,c<Space>
 
+" Open the tag definition in a new tab
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" Open the tag definition in a vertical split
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 command! W w !sudo tee % > /dev/null
 
