@@ -11,8 +11,8 @@ set hidden							" you can change buffers without saving
 set nobackup
 set nowrap							" Don't wrap text
 set scrolloff=2						" Keep 2 lines top/bottom visible for scope
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set expandtab						" Auto convert tabs to spaces
 set showcmd							" display incomplete commands
 set incsearch						" do incremental searching
@@ -27,8 +27,8 @@ set splitbelow						" Open new horizontal split windows below current
 set splitright						" Open new vertical split windows to the right
 set laststatus=2					" Always show status line
 set ruler							" show the cursor position in the status line
-"set cursorline						" Highlight current line
-"set cursorcolumn					" Highlight current column
+set cursorline						" Highlight current line
+set cursorcolumn					" Highlight current column
 set number							" turn on line numbers
 set formatoptions=rq				" Automatically insert comment leader on return, and let gq format comments
 set autoread						" Don't prompt to reread the file if it is unchanged in the editor but modified externally.
@@ -45,14 +45,15 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 "set directory=c:\temp
 "set viminfo=c:\temp\_viminfo
 
-
 "colorscheme koehler
 "colorscheme slate2
 "colorscheme torte
 "colorscheme twilight
 colorscheme twilight2
+"colorscheme koehler
 "colorscheme vividchalk
 "colorscheme ir_black
+"colorscheme elflord
 
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
@@ -172,8 +173,8 @@ map <leader>fa :call VimGrep()<CR>
 map <leader>ft :FufTag<CR>
 map <leader>ff :CommandT<CR>
 
-"Open tag in new tab
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" show yank register
+map <leader>yr :YRShow<CR>
 
 " TABS: Firefox style, open tabs with command-<tab number>
 map <silent> <D-1> :tabn 1<CR>
@@ -207,6 +208,9 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 command! W w !sudo tee % > /dev/null
+
+" Bind jj to esc key when in insert mode
+"imap jj <Esc>
 
 "use function! to overwrite when resourcing the vimrc
 function! CopyPathToClipboard()
