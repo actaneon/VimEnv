@@ -423,3 +423,8 @@ endfunction
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 
 so ~/.vim/ruby-refactoring.vim
+
+" Include user's local vim config
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
