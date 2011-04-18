@@ -13,9 +13,6 @@
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = http://github.com/tpope/vim-unimpaired.git
-[submodule "bundle/haml"]
-	path = bundle/haml
-	url = http://github.com/tpope/vim-haml.git
 [submodule "bundle/cucumber"]
 	path = bundle/cucumber
 	url = http://github.com/tpope/vim-cucumber.git
@@ -52,3 +49,6 @@
 [submodule "bundle/textobj-rubyblock"]
 	path = bundle/textobj-rubyblock
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
+[submodule "bundle/haml"]
+	path = bundle/haml
+	url = git@github.com:satisfaction/vim-haml.git
