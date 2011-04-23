@@ -5,33 +5,34 @@ set enc=utf-8
 set guifont=monaco:h12
 
 set nocompatible
-set backspace=indent,eol,start		" allow backspacing over everything in insert mode
-set history=50						" keep 50 lines of command line history
-set hidden							" you can change buffers without saving
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set history=50                  " keep 50 lines of command line history
+set hidden                      " you can change buffers without saving
 set nobackup
-set nowrap							" Don't wrap text
-set scrolloff=2						" Keep 2 lines top/bottom visible for scope
+set nowrap                      " Don't wrap text
+set scrolloff=2                 " Keep 2 lines top/bottom visible for scope
 set shiftwidth=2
 set tabstop=2
-set expandtab						" Auto convert tabs to spaces
-set showcmd							" display incomplete commands
-set incsearch						" do incremental searching
-set smartcase						" case sensitive only if search contains uppercase
-set ignorecase						" Needs to be present for smartcase to work as intended
-set wildmenu 						" :e tab completion file browsing
-set wildmode=list:longest,full		" List all matches on first TAB, complete/cycle on second TAB
-set cf								" Enable error files & error jumping.
-set listchars=tab:>-,trail:.,eol:$
-set vb 								" turns off visual bell
-set splitbelow						" Open new horizontal split windows below current
-set splitright						" Open new vertical split windows to the right
-set laststatus=2					" Always show status line
-set ruler							" show the cursor position in the status line
-set cursorline						" Highlight current line
-set cursorcolumn					" Highlight current column
-set number							" turn on line numbers
-set formatoptions=rq				" Automatically insert comment leader on return, and let gq format comments
-set autoread						" Don't prompt to reread the file if it is unchanged in the editor but modified externally.
+set expandtab                   " Auto convert tabs to spaces
+set showcmd                     " display incomplete commands
+set incsearch                   " do incremental searching
+set smartcase                   " case sensitive only if search contains uppercase
+set ignorecase                  " Needs to be present for smartcase to work as intended
+set wildmenu                    " :e tab completion file browsing
+set wildmode=list:longest,full  " List all matches on first TAB, complete/cycle on second TAB
+set cf                          " Enable error files & error jumping.
+set listchars=tab:▸\ ,eol:¬     " Use the same symbols as TextMate for tabstops and EOLs
+"set listchars=tab:>-,trail:.,eol:$
+set vb                          " turns off visual bell
+set splitbelow                  " Open new horizontal split windows below current
+set splitright                  " Open new vertical split windows to the right
+set laststatus=2                " Always show status line
+set ruler                       " show the cursor position in the status line
+"set cursorline                  " Highlight current line
+"set cursorcolumn                " Highlight current column
+set number                      " turn on line numbers
+set formatoptions=rq            " Automatically insert comment leader on return, and let gq format comments
+set autoread                    " Don't prompt to reread the file if it is unchanged in the editor but modified externally.
 
 "set cindent
 "set smartindent
@@ -39,11 +40,6 @@ set autoread						" Don't prompt to reread the file if it is unchanged in the ed
 " Store temporary files in a central spot
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
-
-" Windows Only
-"set backupdir=c:\temp
-"set directory=c:\temp
-"set viminfo=c:\temp\_viminfo
 
 "colorscheme koehler
 "colorscheme slate2
@@ -70,8 +66,8 @@ endif
 
 
 if has("gui_running")
-  set go-=T							" keep MacVim toolbar hidden
-  "set guioptions-=rL				" Scrollbar always off
+  set go-=T                       " keep MacVim toolbar hidden
+  "set guioptions-=rL             " Scrollbar always off
   set fuoptions=maxvert,maxhorz		" fullscreen maximizes vertically AND horizontally
 
   "set autochdir
@@ -124,7 +120,7 @@ else
   set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
-let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
 
 "==================="
@@ -208,6 +204,42 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 command! W w !sudo tee % > /dev/null
+
+" bubble up selected text
+vmap <C-up> [egv
+vmap <C-k> [egv
+
+" bubble down selected text
+vmap <C-down> ]egv
+vmap <C-j> ]egv
+
+" Easy access to the start and the end of the line (for Ivan)
+nnoremap - ^
+nnoremap _ $
+
+" Turnoff search highlighting by pressing enter key
+nnoremap <CR> :nohlsearch<CR>/<BS>
+
+" Append closing characters
+inoremap (( ()<Left>
+inoremap [[ []<Left>
+inoremap {{ {}<Left>
+inoremap "" ""<Left>
+inoremap '' ''<Left>
+
+" Keep selection after indenting text
+vnoremap > >gv
+vnoremap < <gv
+
+" Tabularize
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+  nmap <Leader>a, :Tabularize /,<CR>
+  vmap <Leader>a, :Tabularize /,<CR>
+endif
 
 " Bind jj to esc key when in insert mode
 "imap jj <Esc>
