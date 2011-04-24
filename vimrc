@@ -193,10 +193,10 @@ nmap <D-[> <<
 vmap <D-[> <<
 imap <D-[> <C-O><<
 
-" bind command-/ to toggle comment (requires NERD Commenter)
-nmap <D-/> ,c<Space>
-vmap <D-/> ,c<Space>
-imap <D-/> <C-O>,c<Space>
+" bind command-/ to toggle comment (requires tComment)
+nmap <D-/> <C-_><C-_>
+vmap <D-/> <C-_><C-_>
+imap <D-/> <C-O><C-_><C-_>
 
 " Open the tag definition in a new tab
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
