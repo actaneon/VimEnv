@@ -1,3 +1,16 @@
+Setup
+========
+1) git clone git@github.com:actaneon/VimEnv.git ~/.vim
+2) ln -s ~/.vim/vimrc ~/.vimrc
+3) cd ~/.vim
+4) git submodule init
+5) git submodule update
+6) Enjoy!
+
+
+Vim Tips
+========
+
 :set all	List all the possible vim features
 :reg		List all registers
 
