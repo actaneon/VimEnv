@@ -454,6 +454,17 @@ endfunction
 " Create custom command for Function
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 
+" A function to clear the undo history
+function! <SID>ForgetUndo()
+    let old_undolevels = &undolevels
+    set undolevels=-1
+    exe "normal a \<BS>\<Esc>"
+    let &undolevels = old_undolevels
+    unlet old_undolevels
+endfunction
+command! -nargs=0 ClearUndo call <SID>ForgetUndo()
+
+
 so ~/.vim/ruby-refactoring.vim
 
 " Include user's local vim config
