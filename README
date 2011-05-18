@@ -10,9 +10,8 @@ Setup
 
 Vim Tips
 ========
-
 :set all	List all the possible vim features
-:reg		List all registers
+<C-n>     Text auto-completion
 
 Exiting/Saving
 :wa			write all.
@@ -26,7 +25,7 @@ Shell
 
 
 File Browsing
-:Ex			Ex(plorer) mode
+:Ex			Ex(plorer) mode, re-read file from disk
 gf			Open file under cursor
 
 Moving
@@ -156,6 +155,9 @@ Registers
 "/p		Paste the last search
 @: 		Repeat the last command
 
+:reg		List all registers
+<R-a>   Paste contents of named register <a> (useful for : or / command lines)
+
 
 Search
 # or *	Search for word under cursor
@@ -179,6 +181,7 @@ Replace / Regex
 :%s/Storage=".\{-}" //		Non-greedy replace
 :%s/<!--\_.\{-}-->//		delete HTML comments, potentially spanning multiple lines
 
+:%s/\<\(\w\)\(\w*\)>/\u\1\L\2/g     Capitalize each word
 
 <c-a>		Increment number under the cursor
 <c-x>		Decrement number under cursor
@@ -219,3 +222,11 @@ Insert mode
 <C-s><C-s>		In insert mode, add a new line + surrounding + indent
 <C-g>s			Same as <C-s>
 <C-g>S			Same as <C-s><C-s>
+
+==================
+= Unimparied.Vim =
+==================
+[Q    Go to first quickfix buffer
+[q    Go to prev quickfix buffer
+]q    Go to next quickfix buffer
+]Q    Go to last quickfix buffer
