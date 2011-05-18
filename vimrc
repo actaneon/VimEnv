@@ -41,6 +41,9 @@ set autoread                    " Don't prompt to reread the file if it is uncha
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 
+" Show git branch form fugitive on the statusline.
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 "colorscheme koehler
 "colorscheme slate2
 "colorscheme torte
@@ -94,6 +97,15 @@ if has("autocmd")
   "Always change to directory of current file
   "autocmd BufEnter * lcd %:p:h
 
+  " Go up a level in the git repository in fugitive using ..
+  autocmd User fugitive
+    \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+    \   nnoremap <buffer> .. :edit %:h<CR> |
+    \ endif
+
+  " Auto cleanup fugitive buffers
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
@@ -102,19 +114,18 @@ if has("autocmd")
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
-  au!
+    au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+    " For all text files set 'textwidth' to 78 characters.
+    autocmd FileType text setlocal textwidth=78
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
   augroup END
 else
   set autoindent		" always set autoindenting on
