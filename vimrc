@@ -94,7 +94,8 @@ if has("autocmd")
 
   autocmd! VimLeave * silent :!rm ~/.yankring_history_v2.txt
 
-  autocmd filetype sql map <leader>x :DBExecRangeSQL<cr>
+  autocmd filetype sql noremap <leader>x :DBExecRangeSQL<cr>
+  autocmd filetype sql noremap <leader>d :DBExecSQL describe <c-r>=expand("<cword>") <cr><cr>
 
   "Always change to directory of current file
   "autocmd BufEnter * lcd %:p:h
