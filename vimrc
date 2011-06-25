@@ -181,7 +181,8 @@ map <leader>nf :NERDTreeFind<CR>
 map <leader>tl :Tlist<CR>
 map <leader>fa :call VimGrep()<CR>
 map <leader>ft :FufTag<CR>
-map <leader>ff :CommandT<CR>
+map <leader>ff :CommandTFlush<cr>\|:CommandT<cr>
+
 
 " show yank register
 map <leader>yr :YRShow<CR>
