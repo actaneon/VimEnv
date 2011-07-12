@@ -180,8 +180,13 @@ nmap <leader>sc :call TestCommand()<CR>
 nmap <leader>tc :call TestContext()<CR>
 nmap <leader>tf :call TestFile()<CR>
 
-"nnoremap <leader>t :call RunAllTests('')<cr>:redraw<cr>:call JumpToError()<cr>
-"nnoremap <leader>T :call RunAllTests('')<cr>
+" Run this file
+map <leader>t :call RunTestFile()<cr>
+" Run only the example under the cursor
+map <leader>T :call RunNearestTest()<cr>
+" Run all test files
+map <leader>a :call RunTests('spec')<cr>
+
 
 map <leader>nt :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
@@ -315,84 +320,41 @@ function! WriteRun()
 	w | ! %:p
 endfunction
 
-
-function! RunTests(target, args)
-	silent ! echo
-	exec 'silent ! echo -e "\033[1;36mRunning tests in ' . a:target . '\033[0m"'
-	silent w
-	exec "make " . a:target . " " . a:args
+"Run only the tests you want while moving around
+function! RunTests(filename)
+  " Write the file and run tests for the given filename
+  :w
+  :silent !echo;echo;echo;echo;echo
+  exec ":!bundle exec rspec " . a:filename
 endfunction
 
-function! ClassToFilename(class_name)
-	let understored_class_name = substitute(a:class_name, '\(.\)\(\u\)', '\1_\U\2', 'g')
-	let file_name = substitute(understored_class_name, '\(\u\)', '\L\1', 'g')
-	return file_name
+function! SetTestFile()
+  " Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
 endfunction
 
-function! ModuleTestPath()
-	let file_path = @%
-	let components = split(file_path, '/')
-	let path_without_extension = substitute(file_path, '\.rb$', '', '')
-	let test_path = 'tests/unit/' . path_without_extension
-	return test_path
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for the previously-marked file.
+  let in_spec_file = match(expand("%"), '_spec.rb$') != -1
+  if in_spec_file
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
 endfunction
 
-function! NameOfCurrentClass()
-	let save_cursor = getpos(".")
-	normal $<cr>
-	"call RubyDec('class', -1)
-	let line = getline('.')
-	call setpos('.', save_cursor)
-	let match_result = matchlist(line, ' *class \+\(\w\+\)')
-	let class_name = ClassToFilename(match_result[1])
-	return class_name
+function! RunNearestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number)
 endfunction
 
-function! TestFileForCurrentClass()
-	let class_name = NameOfCurrentClass()
-	let test_file_name = ModuleTestPath() . '/test_' . class_name . '.rb'
-	return test_file_name
-endfunction
-
-function! TestModuleForCurrentFile()
-	let test_path = ModuleTestPath()
-	let test_module = substitute(test_path, '/', '.', 'g')
-	return test_module
-endfunction
-
-function! RunTestsForFile(args)
-	if @% =~ 'test_'
-		call RunTests('%', a:args)
-	else
-		let test_file_name = TestModuleForCurrentFile()
-		call RunTests(test_file_name, a:args)
-	endif
-endfunction
-
-function! RunAllTests(args)
-	silent ! echo
-	silent ! echo -e "\033[1;36mRunning all unit tests\033[0m"
-	silent w
-	exec "make!" . a:args
-endfunction
-
-function! JumpToError()
-	if getqflist() != []
-		for error in getqflist()
-			if error['valid']
-				break
-			endif
-		endfor
-		let error_message = substitute(error['text'], '^ *', '', 'g')
-		silent cc!
-		exec ":sbuffer " . error['bufnr']
-		call RedBar()
-		echo error_message
-	else
-		call GreenBar()
-		echo "All tests passed"
-	endif
-endfunction
 
 function! RedBar()
 	hi RedBar ctermfg=white ctermbg=red guibg=red
