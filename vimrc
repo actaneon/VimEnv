@@ -236,11 +236,12 @@ nnoremap _ $
 nnoremap <CR> :nohlsearch<CR>/<BS>
 
 " Append closing characters
-inoremap (( ()<Left>
-inoremap [[ []<Left>
-inoremap {{ {}<Left>
-inoremap "" ""<Left>
-inoremap '' ''<Left>
+" Can't stand these
+" inoremap (( ()<Left>
+" inoremap [[ []<Left>
+" inoremap {{ {}<Left>
+" inoremap "" ""<Left>
+" inoremap '' ''<Left>
 
 " Keep selection after indenting text
 vnoremap > >gv
