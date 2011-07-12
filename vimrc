@@ -146,9 +146,8 @@ let mapleader=","
 " Don't use Ex mode, use Q for formatting
 "map Q gq
 
-" Split Edit / Reload Vim Config
-map <leader>v :tabnew $MYVIMRC<CR>
-map <leader>V :source $MYVIMRC<CR>
+" Split Edit / Reload Vim Config (short for Configure Vim)
+map <leader>cv :tabnew $MYVIMRC<CR>
 
 " Switch between windows
 map <C-J> <C-W>j
@@ -156,8 +155,16 @@ map <C-K> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 
+"Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
 " Toggle display of characters for whitespace
 map <silent> <leader>s :set nolist!<CR>
+
+" Edit or view files in same directory as current file
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+map <leader>v :view %%
 
 "Execute current file
 "map <leader>r :! %:p<CR>
@@ -181,7 +188,21 @@ map <leader>nf :NERDTreeFind<CR>
 map <leader>tl :Tlist<CR>
 map <leader>fa :Ack -ui 
 map <leader>ft :FufTag<CR>
+
+
+"Custom Command-T mappings
 map <leader>ff :CommandTFlush<cr>\|:CommandT<cr>
+" Open files, limited to the directory of the current file.  " This requires the %% mapping.
+map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
+
+"Custom Rails-specific Command-T mappings
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
 
 
 " show yank register
