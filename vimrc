@@ -179,7 +179,7 @@ nmap <leader>tf :call TestFile()<CR>
 map <leader>nt :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 map <leader>tl :Tlist<CR>
-map <leader>fa :call VimGrep()<CR>
+map <leader>fa :Ack -ui 
 map <leader>ft :FufTag<CR>
 map <leader>ff :CommandTFlush<cr>\|:CommandT<cr>
 
@@ -233,6 +233,8 @@ nnoremap - ^
 nnoremap _ $
 
 " Turnoff search highlighting by pressing enter key
+" Note this breaks the ability to press enter in the quickfix window to jump to a file.
+" Use <C-Enter> as a workaround.
 nnoremap <CR> :nohlsearch<CR>/<BS>
 
 " Append closing characters
@@ -386,18 +388,6 @@ function! GreenBar()
 endfunction
 
 
-function! VimGrep()
-	let pattern = input("Search Pattern: ")
-	let filePattern = input("File Pattern: ")
-
-	let cmd = ':noautocmd vimgrep /'.pattern.'/gj ./**/'.filePattern
-	"let cmd = ':grep -Er "'.pattern.'" app api lib public script spec'
-
-	exe cmd
-	cw
-endfunction
-
-
 command! -nargs=* -complete=command DiffCheck call DiffCheck(<f-args>)
 function! DiffCheck(...)
 	setlocal errorformat=%f
@@ -451,7 +441,6 @@ endfunction
 function! UpdateTags()
 	if g:enableTags == 1
 		:execute ':!ctags -f '.g:project_path.'/tmp/tags -R '.g:project_path.'/ *.rb &'
-		":Rtags	 "Possilbe alternative but dependend on Rails plugin and being rails project.
 	endif
 endfunction
 
