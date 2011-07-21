@@ -283,6 +283,10 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a, :Tabularize /,<CR>
 vmap <Leader>a, :Tabularize /,<CR>
 
+"Shortcuts for moving through Diffcheck() similar to moving through the quickfix window.
+:map {Q :Gdp<cr>
+:map }Q :Gdn<cr>
+
 " Bind jj to esc key when in insert mode
 "imap jj <Esc>
 
