@@ -458,6 +458,23 @@ function! <SID>ForgetUndo()
 endfunction
 command! -nargs=0 ClearUndo call <SID>ForgetUndo()
 
+function! OpenFileWithOptionalLineNumber(path)
+  if match(a:path, ":") > 0
+    let tmp = split(a:path, ":")
+    let path = tmp[0]
+    let line_number = tmp[1]
+
+    let open_cmd = ":ex ".path
+    execute open_cmd
+
+    let jump_cmd = ":".line_number
+    execute jump_cmd
+  else
+    execute ":ex ".a:path
+  endif
+endfunction
+command! -nargs=1 Ex call OpenFileWithOptionalLineNumber(<f-args>)
+
 
 so ~/.vim/ruby-refactoring.vim
 
