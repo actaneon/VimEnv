@@ -46,14 +46,8 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/tmp
 " Show git branch form fugitive on the statusline.
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
-"colorscheme koehler
-"colorscheme slate2
-"colorscheme torte
 "colorscheme twilight
 colorscheme twilight2
-"colorscheme koehler
-"colorscheme vividchalk
-"colorscheme ir_black
 "colorscheme elflord
 
 if !exists("autocommands_loaded")
