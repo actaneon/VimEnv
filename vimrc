@@ -92,8 +92,6 @@ if has("autocmd")
 
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
-  autocmd! VimLeave * silent :!rm ~/.yankring_history_v2.txt
-
   autocmd filetype sql noremap <leader>x :DBExecRangeSQL<cr>
   autocmd filetype sql noremap <leader>d :DBExecSQL describe <c-r>=expand("<cword>") <cr><cr>
 
@@ -209,9 +207,6 @@ map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
 map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
 map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
 
-
-" show yank register
-map <leader>yr :YRShow<CR>
 
 " TABS: Firefox style, open tabs with command-<tab number>
 map <silent> <D-1> :tabn 1<CR>
