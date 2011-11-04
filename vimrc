@@ -179,7 +179,7 @@ nmap <leader>tc :call TestContext()<CR>
 nmap <leader>tf :call TestFile()<CR>
 
 " Run this file
-map <leader>t :call RunTestFile()<cr>
+map <silent> <leader>t :call RunTestFile()<cr>
 " Run only the example under the cursor
 map <leader>T :call RunNearestTest()<cr>
 " Run all test files
@@ -207,6 +207,7 @@ map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
 map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
 map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
 
+map <leader>gd :CommandTFlush<cr>\|:CommandT app/domain<cr>
 
 " TABS: Firefox style, open tabs with command-<tab number>
 map <silent> <D-1> :tabn 1<CR>
@@ -322,13 +323,20 @@ endfunction
 "Run only the tests you want while moving around
 function! RunTests(filename)
   " Write the file and run tests for the given filename
-  :w
+  silent :w
   :silent !echo;echo;echo;echo;echo
   if filereadable("script/test")
-      exec ":!script/test " . a:filename
+      let return_code = s:ExecuteInShell("script/test " . a:filename)
   else
-      exec ":!bundle exec rspec " . a:filename
+      let return_code = s:ExecuteInShell("bundle exec rspec " . a:filename)
   end
+
+  if return_code == 0
+    call GreenBar()
+  else
+    call RedBar()
+  endif
+
 endfunction
 
 function! SetTestFile()
@@ -355,7 +363,7 @@ endfunction
 
 function! RunNearestTest()
   let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number)
+  silent call RunTestFile(":" . spec_line_number)
 endfunction
 
 
@@ -363,14 +371,14 @@ function! RedBar()
 	hi RedBar ctermfg=white ctermbg=red guibg=red
 	echohl RedBar
 	echon repeat(" ",&columns - 1)
-	echohl
+	echohl None
 endfunction
 
 function! GreenBar()
 	hi GreenBar ctermfg=white ctermbg=green guibg=green
 	echohl GreenBar
 	echon repeat(" ",&columns - 1)
-	echohl
+	echohl None
 endfunction
 
 
@@ -498,3 +506,42 @@ endif
 "   let lines = getline(firstline, lastline)
 "   exec ":!".join(lines, " && ")
 " endfunction
+
+
+"Source: http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
+function! s:ExecuteInShell(command)
+  let command = join(map(split(a:command), 'expand(v:val)'))
+
+  "This will use buffer corresponding to command name
+  " let winnr = bufwinnr('^' . command . '$')
+  " silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
+
+  "This will reuse the same buffer
+  let winnr = bufwinnr('^' . 'test_output' . '$')
+  silent! execute  winnr < 0 ? 'botright new ' . 'test_output' : winnr . 'wincmd w'
+
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+  " echo 'Execute ' . command . '...'
+  silent! execute 'silent %!'. command
+  let shell_status_code = v:shell_error
+
+  silent! execute 'resize ' . line('$')
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+
+  "This only seems to work when using <Leader> and only when in the output window.
+  " silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+
+  wincmd p
+
+  let message = 'Shell command ' . command . ' executed.'
+  " echo message
+
+	" hi GreenBar ctermfg=black guifg=black ctermbg=green guibg=green
+	" hi RedBar ctermfg=black guifg=black ctermbg=red guibg=red
+	" echohl GreenBar | echo message | echon repeat(" ",&columns - len(message)) | echohl
+  " silent! redraw
+
+  return shell_status_code
+endfunction
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
