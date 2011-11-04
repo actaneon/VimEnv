@@ -477,3 +477,24 @@ so ~/.vim/ruby-refactoring.vim
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+
+" vmap <leader>! :call ExecuteSelectedCommand()<CR>
+" function! ExecuteSelectedCommand()
+"   let cmd = ":! ".@*
+"   echo cmd
+"   exec cmd
+" endfunction
+"
+
+" vmap <Leader>! :call ExecuteVLines()<CR>
+"
+" function! NumSort(a, b)
+"   return a:a>a:b ? 1 : a:a==a:b ? 0 : -1
+" endfunction
+"
+" function! ExecuteVLines()
+"   let [firstline, lastline]=sort([line('v'), line('.')], 'NumSort')
+"   let lines = getline(firstline, lastline)
+"   exec ":!".join(lines, " && ")
+" endfunction
