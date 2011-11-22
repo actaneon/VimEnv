@@ -1,5 +1,7 @@
 call pathogen#runtime_append_all_bundles()
 
+" set t_Co=256                      " Enable colors (must be set before syntax enable and Terminal must support 256 colors (option in Lion terminal))
+
 set enc=utf-8
 "set guifont=menlo:h12
 set guifont=monaco:h12
