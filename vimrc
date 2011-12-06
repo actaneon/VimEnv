@@ -174,6 +174,7 @@ map <leader>x :w<CR>:! %:p<CR>
 
 "Copy path to clipboard
 nmap <leader>cp :call CopyPathToClipboard()<CR>
+nmap <leader>cmv :call CopyMigrationVersionToClipboard()<CR>
 
 " Run rspec
 nmap <leader>sc :call TestCommand()<CR>
@@ -291,6 +292,16 @@ vmap <Leader>a, :Tabularize /,<CR>
 "use function! to overwrite when resourcing the vimrc
 function! CopyPathToClipboard()
 	let @* = expand('%')
+	echo "Copied to clipboard: ".@*
+endfunction
+
+function! CopyMigrationVersionToClipboard()
+	let path = expand('%')
+  let a = split(path, '_')
+  let b = split(a[0], '/')
+  let ver = b[-1]
+
+	let @* = ver
 	echo "Copied to clipboard: ".@*
 endfunction
 
