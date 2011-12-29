@@ -193,7 +193,6 @@ map <leader>nt :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 map <leader>tl :Tlist<CR>
 map <leader>fa :Ack -ui 
-map <leader>ft :FufTag<CR>
 
 
 "Custom Command-T mappings
