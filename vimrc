@@ -274,6 +274,8 @@ nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a, :Tabularize /,<CR>
 vmap <Leader>a, :Tabularize /,<CR>
+nmap <Leader>as :Tabularize /\s.*<CR>
+vmap <Leader>as :Tabularize /\s.*<CR>
 
 "Shortcuts for moving through Diffcheck() similar to moving through the quickfix window.
 :map {Q :Gdp<cr>
