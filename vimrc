@@ -88,7 +88,8 @@ if has("autocmd")
 
   autocmd! bufwritepost *.rb silent call UpdateTags()
 
-  autocmd filetype sql noremap <leader>x :DBExecRangeSQL<cr>
+  autocmd filetype sql noremap <leader>x :DBExecSQLUnderCursor<cr>
+  autocmd filetype sql noremap <leader>X :DBExecRangeSQL<cr>
   autocmd filetype sql noremap <leader>d :DBExecSQL describe <c-r>=expand("<cword>") <cr><cr>
 
   "Always change to directory of current file
