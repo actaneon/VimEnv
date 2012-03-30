@@ -208,32 +208,6 @@ map <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
 
 map <leader>gd :CommandTFlush<cr>\|:CommandT app/domain<cr>
 
-" TABS: Firefox style, open tabs with command-<tab number>
-map <silent> <D-1> :tabn 1<CR>
-map <silent> <D-2> :tabn 2<CR>
-map <silent> <D-3> :tabn 3<CR>
-map <silent> <D-4> :tabn 4<CR>
-map <silent> <D-5> :tabn 5<CR>
-map <silent> <D-6> :tabn 6<CR>
-map <silent> <D-7> :tabn 7<CR>
-map <silent> <D-8> :tabn 8<CR>
-map <silent> <D-9> :tabn 9<CR>
-
-" bind command-] to shift right
-nmap <D-]> >>
-vmap <D-]> >>
-imap <D-]> <C-O>>>
-
-" bind command-[ to shift left
-nmap <D-[> <<
-vmap <D-[> <<
-imap <D-[> <C-O><<
-
-" bind command-/ to toggle comment (requires tComment)
-nmap <D-/> <C-_><C-_>
-vmap <D-/> <C-_><C-_>
-imap <D-/> <C-O><C-_><C-_>
-
 " Open the tag definition in a new tab
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " Open the tag definition in a vertical split
