@@ -177,11 +177,11 @@ nmap <leader>tc :call TestContext()<CR>
 nmap <leader>tf :call TestFile()<CR>
 
 " Run this file
-map <silent> <leader>t :call RunTestFile()<cr>
+map <silent> <leader>T :call RunTestFile()<cr>
 " Run only the example under the cursor
-map <leader>T :call RunNearestTest()<cr>
+map <leader>t :call RunNearestTest()<cr>
 " Run all test files
-map <leader>a :call RunTests('spec')<cr>
+" map <leader>a :call RunTests('spec')<cr>
 
 
 map <leader>nt :NERDTreeToggle<CR>
@@ -374,7 +374,7 @@ endfunction
 
 function! RunNearestTest()
   let spec_line_number = line('.')
-  silent call RunTestFile(":" . spec_line_number)
+  call RunTestFile(":" . spec_line_number)
 endfunction
 
 
