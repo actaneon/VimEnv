@@ -50,6 +50,8 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 colorscheme twilight2
 "colorscheme elflord
 
+let g:slime_target = "tmux"
+
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
   let project_path = getcwd()
