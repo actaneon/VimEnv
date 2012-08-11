@@ -23,8 +23,6 @@ set ignorecase                  " Needs to be present for smartcase to work as i
 set wildmenu                    " :e tab completion file browsing
 set wildmode=list:longest,full  " List all matches on first TAB, complete/cycle on second TAB
 set cf                          " Enable error files & error jumping.
-set listchars=tab:▸\ ,eol:¬     " Use the same symbols as TextMate for tabstops and EOLs
-"set listchars=tab:>-,trail:.,eol:$
 set vb                          " turns off visual bell
 set splitbelow                  " Open new horizontal split windows below current
 set splitright                  " Open new vertical split windows to the right
