@@ -197,6 +197,15 @@ ci{ ? change text inside {} block (Or, di{, yi{, etc.)
 Misc
 :botright cwindow			make quickfix window span the entire bottom width
 
+Words
+-----------
+# Don't treat _ as a word character so that word based commands recognize individual words in variable names.
+:set iskeyword-=_
+
+# Treat _ as a word character so that word based commands treat are based on the entire word phrase in variable names.
+:set iskeyword+=_
+
+
 ================
 = Surround.Vim =
 ================
