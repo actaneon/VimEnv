@@ -187,7 +187,7 @@ map <leader>t :call RunNearestTest()<cr>
 map <leader>nt :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 map <leader>tl :Tlist<CR>
-map <leader>fa :Ack -ui 
+map <leader>fa :Ack -ui --invert-file-match -G 'js.erb' 
 
 
 "Custom Command-T mappings
