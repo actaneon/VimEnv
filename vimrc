@@ -278,7 +278,12 @@ function! CopyMigrationVersionToClipboard()
 endfunction
 
 function! TestCommand()
+	if executable("rspec")
+    let @* = "rspec ".expand('%').":".line(".")
+	else
     let @* = "spec ".expand('%').":".line(".")
+	endif
+
 	echo "Copied to clipboard: ".@*
 endfunction
 
