@@ -82,6 +82,9 @@ if has("autocmd")
   "vim instance
   autocmd! bufwritepost .vimrc source %
 
+  "Treat rabl as ruby
+  au BufRead,BufNewFile *.rabl setf ruby
+
   " kill trailing spaces when exiting file
   " Keeping this disabled.  Messes with existing Git files too much.
   "autocmd BufWritePre * :%s/\s\+$//e
