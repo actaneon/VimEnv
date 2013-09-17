@@ -93,10 +93,6 @@
   path = bundle/coffee-script
   url = https://github.com/kchmck/vim-coffee-script.git
   ignore = untracked
-[submodule "bundle/slim"]
-  path = bundle/slim
-  url = https://github.com/bbommarito/vim-slim.git
-  ignore = untracked
 [submodule "bundle/vim-slime"]
   path = bundle/vim-slime
   url = https://github.com/jpalardy/vim-slime.git
