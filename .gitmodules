@@ -97,3 +97,6 @@
   path = bundle/vim-slime
   url = https://github.com/jpalardy/vim-slime.git
   ignore = untracked
+[submodule "vim_rspec"]
+	path = vim_rspec
+	url = git@github.com:thoughtbot/vim-rspec.git
