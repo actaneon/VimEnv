@@ -491,3 +491,35 @@ function! s:ExecuteInShell(command)
   return shell_status_code
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+
+
+function! s:FoldItBlock()
+  let start = search('^\s*\(it\|let\|specify\|scenario\|before\).*do\s*$', 'We')
+  let end   = search('end', 'We')
+  let cmd = (start).','.(end+1).'fold'
+  if (start > 0) && (start < end)
+    execute cmd
+    return 1
+  else
+    return 0
+  endif
+endfunction
+
+function! FoldAllItBlocks()
+  let position = line('.')
+  exe cursor(1,1)
+  let result = 1
+
+  while result == 1
+    let result = s:FoldItBlock()
+  endwhile
+
+  call cursor(position, 1)
+endfunction
+
+nmap <leader>f1 :call FoldAllItBlocks()<CR>
+nmap <leader>f0 :execute "normal zE"<CR>
+
+function! FormatNumbers()
+  :%s/\(\d\)\(\(\d\d\d\)\+\d\@!\)\@=/\1,/g
+endfunction
