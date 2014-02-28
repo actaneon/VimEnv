@@ -54,10 +54,6 @@
   path = bundle/textobj-rubyblock
   url = https://github.com/nelstrom/vim-textobj-rubyblock.git
   ignore = untracked
-[submodule "bundle/jshint"]
-  path = bundle/jshint
-  url = https://github.com/wookiehangover/jshint.vim.git
-  ignore = untracked
 [submodule "bundle/tabular"]
   path = bundle/tabular
   url = https://github.com/godlygeek/tabular.git
