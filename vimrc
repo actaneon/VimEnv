@@ -11,6 +11,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -555,3 +557,8 @@ nmap <leader>f0 :execute "normal zE"<CR>
 function! FormatNumbers()
   :%s/\(\d\)\(\(\d\d\d\)\+\d\@!\)\@=/\1,/g
 endfunction
+
+let g:gist_open_browser_after_post = 1
+let g:gist_browser_command = 'echo %URL% | pbcopy'
+let g:gist_post_private = 1
+let g:gist_show_privates = 1
