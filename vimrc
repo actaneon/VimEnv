@@ -568,3 +568,5 @@ let g:gist_show_privates = 1
 function! UpdateRubyHashSynxtax()
 :s/\v:(\w+)? \=\> /\1: /g
 endfunction
+
+"let g:loaded_bufexplorer = 1
