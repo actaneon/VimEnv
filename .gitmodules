@@ -96,6 +96,9 @@
 [submodule "vim_rspec"]
 	path = vim_rspec
 	url = git@github.com:thoughtbot/vim-rspec.git
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = git://git.wincent.com/command-t.git
 [submodule "bundle/vim-tmux-navigator"]
 	path = bundle/vim-tmux-navigator
 	url = git@github.com:christoomey/vim-tmux-navigator.git
