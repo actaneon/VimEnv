@@ -37,6 +37,11 @@ if exists("g:bufexplorer_version") || &cp
 endif
 "1}}}
 
+" allow user to prevent loading and prevent duplicate loading
+if exists("loaded_bufexplorer") || &cp
+  finish
+endif
+
 " Version number
 let g:bufexplorer_version = "7.2.7"
 
