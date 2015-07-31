@@ -576,3 +576,7 @@ nnoremap th :tabprev<CR>
 nnoremap tl :tabnext<CR>
 nnoremap tn :tabnew<CR>
 nnoremap td :tabclose<CR>
+
+"Don't override these as they are used for cursor movement in Vi
+"nnoremap <S-h> gT
+"nnoremap <S-l> gt
