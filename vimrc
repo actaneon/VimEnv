@@ -570,3 +570,9 @@ function! UpdateRubyHashSynxtax()
 endfunction
 
 "let g:loaded_bufexplorer = 1
+
+"tab navigation shortcuts for command line
+nnoremap th :tabprev<CR>
+nnoremap tl :tabnext<CR>
+nnoremap tn :tabnew<CR>
+nnoremap td :tabclose<CR>
